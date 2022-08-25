@@ -11,6 +11,11 @@
 		FA0EDD5628B773180030ACB1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0EDD5528B773180030ACB1 /* ContentView.swift */; };
 		FA0EDD5828B773190030ACB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA0EDD5728B773190030ACB1 /* Assets.xcassets */; };
 		FA0EDD5B28B773190030ACB1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA0EDD5A28B773190030ACB1 /* Preview Assets.xcassets */; };
+		FA0EDD6728B777F00030ACB1 /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = FA0EDD6628B777F00030ACB1 /* Core */; };
+		FA0EDD6A28B77A3C0030ACB1 /* Repository in Frameworks */ = {isa = PBXBuildFile; productRef = FA0EDD6928B77A3C0030ACB1 /* Repository */; };
+		FA0EDD6F28B77F250030ACB1 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = FA0EDD6E28B77F250030ACB1 /* DesignSystem */; };
+		FA0EDD7128B77F2D0030ACB1 /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = FA0EDD7028B77F2D0030ACB1 /* Utilities */; };
+		FA0EDD7428B781FB0030ACB1 /* DIContainer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0EDD7328B781FB0030ACB1 /* DIContainer+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +24,11 @@
 		FA0EDD5528B773180030ACB1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FA0EDD5728B773190030ACB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA0EDD5A28B773190030ACB1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		FA0EDD6228B7777D0030ACB1 /* Core */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Core; sourceTree = "<group>"; };
+		FA0EDD6828B77A2C0030ACB1 /* Repository */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Repository; sourceTree = "<group>"; };
+		FA0EDD6B28B77D4B0030ACB1 /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Utilities; sourceTree = "<group>"; };
+		FA0EDD6D28B77E970030ACB1 /* DesignSystem */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DesignSystem; sourceTree = "<group>"; };
+		FA0EDD7328B781FB0030ACB1 /* DIContainer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DIContainer+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +36,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA0EDD6F28B77F250030ACB1 /* DesignSystem in Frameworks */,
+				FA0EDD7128B77F2D0030ACB1 /* Utilities in Frameworks */,
+				FA0EDD6A28B77A3C0030ACB1 /* Repository in Frameworks */,
+				FA0EDD6728B777F00030ACB1 /* Core in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -35,8 +49,10 @@
 		FA0EDD4728B773180030ACB1 = {
 			isa = PBXGroup;
 			children = (
+				FA0EDD6128B777400030ACB1 /* Modules */,
 				FA0EDD5228B773180030ACB1 /* TripPlanner */,
 				FA0EDD5128B773180030ACB1 /* Products */,
+				FA0EDD6528B777F00030ACB1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -51,6 +67,7 @@
 		FA0EDD5228B773180030ACB1 /* TripPlanner */ = {
 			isa = PBXGroup;
 			children = (
+				FA0EDD7228B781EC0030ACB1 /* Extensions */,
 				FA0EDD5328B773180030ACB1 /* TripPlannerApp.swift */,
 				FA0EDD5528B773180030ACB1 /* ContentView.swift */,
 				FA0EDD5728B773190030ACB1 /* Assets.xcassets */,
@@ -65,6 +82,40 @@
 				FA0EDD5A28B773190030ACB1 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		FA0EDD6128B777400030ACB1 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				FA0EDD6228B7777D0030ACB1 /* Core */,
+				FA0EDD6B28B77D4B0030ACB1 /* Utilities */,
+				FA0EDD6828B77A2C0030ACB1 /* Repository */,
+				FA0EDD6C28B77E760030ACB1 /* UI */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		FA0EDD6528B777F00030ACB1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FA0EDD6C28B77E760030ACB1 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				FA0EDD6D28B77E970030ACB1 /* DesignSystem */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		FA0EDD7228B781EC0030ACB1 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				FA0EDD7328B781FB0030ACB1 /* DIContainer+.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +134,12 @@
 			dependencies = (
 			);
 			name = TripPlanner;
+			packageProductDependencies = (
+				FA0EDD6628B777F00030ACB1 /* Core */,
+				FA0EDD6928B77A3C0030ACB1 /* Repository */,
+				FA0EDD6E28B77F250030ACB1 /* DesignSystem */,
+				FA0EDD7028B77F2D0030ACB1 /* Utilities */,
+			);
 			productName = TripPlanner;
 			productReference = FA0EDD5028B773180030ACB1 /* TripPlanner.app */;
 			productType = "com.apple.product-type.application";
@@ -137,6 +194,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA0EDD7428B781FB0030ACB1 /* DIContainer+.swift in Sources */,
 				FA0EDD5628B773180030ACB1 /* ContentView.swift in Sources */,
 				FA0EDD5428B773180030ACB1 /* TripPlannerApp.swift in Sources */,
 			);
@@ -339,6 +397,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FA0EDD6628B777F00030ACB1 /* Core */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Core;
+		};
+		FA0EDD6928B77A3C0030ACB1 /* Repository */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Repository;
+		};
+		FA0EDD6E28B77F250030ACB1 /* DesignSystem */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DesignSystem;
+		};
+		FA0EDD7028B77F2D0030ACB1 /* Utilities */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Utilities;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FA0EDD4828B773180030ACB1 /* Project object */;
 }
