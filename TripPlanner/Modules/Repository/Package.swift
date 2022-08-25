@@ -21,11 +21,14 @@ let package = Package(
     targets: [
         .target(
             name: "Repository",
-            dependencies: []
+            dependencies: [
+                "Core",
+                "Utilities",
+            ]
         ),
         .testTarget(
             name: "RepositoryTests",
-            dependencies: ["Repository"]
+            dependencies: ["Repository", "Core"]
         ),
     ]
 )
