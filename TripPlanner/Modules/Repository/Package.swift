@@ -28,7 +28,7 @@ let package = Package(
         ),
         .testTarget(
             name: "RepositoryTests",
-            dependencies: ["Repository", "Core"]
+            dependencies: ["Repository", "Core", "Utilities"]
         ),
     ]
 )
