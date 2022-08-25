@@ -35,4 +35,54 @@ final class DirectedGraphTests: XCTestCase {
             [3, 5, 10]
         )
     }
+
+    func testConnections() {
+        let london: Vertex<String> = .init("London")
+        let tokyo: Vertex<String> = .init("Tokyo")
+        let porto: Vertex<String> = .init("Porto")
+        let sydney: Vertex<String> = .init("Sydney")
+        let capeTown: Vertex<String> = .init("Cape Town")
+        let newYork: Vertex<String> = .init("New York")
+        let losAngeles: Vertex<String> = .init("Los Angeles")
+
+        let grapgh = constructGraph(with: [
+            london, tokyo, porto, sydney, capeTown, newYork, losAngeles,
+        ])
+
+        grapgh.addEdge(source: london, destination: tokyo, weight: 220)
+        grapgh.addEdge(source: tokyo, destination: london, weight: 200)
+        grapgh.addEdge(source: london, destination: porto, weight: 50)
+        grapgh.addEdge(source: tokyo, destination: sydney, weight: 100)
+        grapgh.addEdge(source: sydney, destination: capeTown, weight: 200)
+        grapgh.addEdge(source: capeTown, destination: london, weight: 800)
+        grapgh.addEdge(source: london, destination: newYork, weight: 400)
+        grapgh.addEdge(source: newYork, destination: losAngeles, weight: 120)
+        grapgh.addEdge(source: losAngeles, destination: tokyo, weight: 150)
+
+        grapgh.edges().forEach { print($0) }
+
+        XCTAssertEqual(
+            london.adjacentEdges.map(\.destination.value),
+            [tokyo, porto, newYork].map(\.value)
+        )
+        XCTAssertEqual(
+            porto.adjacentEdges.map(\.destination.value),
+            []
+        )
+        XCTAssertEqual(
+            sydney.adjacentEdges.map(\.destination.value),
+            [capeTown.value]
+        )
+
+        let fromTokyoToSydney = grapgh.edges().first(where: {
+            $0.source.value == "Tokyo" && $0.destination.value == "Sydney"
+        })
+
+        XCTAssertEqual(fromTokyoToSydney?.weight, 100)
+        XCTAssertNil(
+            grapgh.edges().first(where: {
+                $0.source.value == "Sydney" && $0.destination.value == "Tokyo"
+            })
+        )
+    }
 }

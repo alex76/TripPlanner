@@ -10,11 +10,16 @@ class DirectedGraph<Element: Equatable> {
         vertices.append(vertex)
     }
 
-    func addEdge(source: Vertex<Element>, destination: Vertex<Element>) {
+    func addEdge(
+        source: Vertex<Element>,
+        destination: Vertex<Element>,
+        weight: Double? = nil
+    ) {
         if source != destination && source.edgeForDestination(destination) == nil {
             let newEdge = DirectedEdge<Element>(
                 source: source,
-                destination: destination
+                destination: destination,
+                weight: weight
             )
             source.addEdge(newEdge)
         }
