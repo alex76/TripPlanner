@@ -45,6 +45,10 @@ class DirectedGraph<Element: Equatable> {
     func verticesCount() -> Int {
         return vertices.count
     }
+
+    func leafs() -> [Vertex<Element>] {
+        vertices.filter { $0.adjacentEdges.isEmpty }
+    }
 }
 
 // MARK: - Find connections
