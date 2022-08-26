@@ -21,7 +21,7 @@ struct TripPlannerApp: App {
     var body: some Scene {
         WindowGroup {
             if let tripRepository = container.tripRepository {
-                ContentView()
+                TripListScreenView(viewModel: TripListViewModel(repository: tripRepository))
                     .environmentObject(container)
             }
         }
