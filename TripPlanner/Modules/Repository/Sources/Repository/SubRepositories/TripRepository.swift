@@ -44,6 +44,13 @@ final class TripRepository: TripRepositoryProtocol {
         return URLSession.shared.dataTaskPublisher(for: url)
             .handleEvents(receiveOutput: { [weak self] (wrapper: ConnectionWrapper) in
                 self?.connectionGraph = .init(connections: wrapper.connections)
+
+                let debugDescription =
+                    self?.connectionGraph?.edges().reduce("") {
+                        $0
+                            + "\n[\($1.source.value.name) --> \($1.destination.value.name)] (\($1.weight ?? 0))"
+                    } ?? ""
+                print("[GRAPH 🛠] --->\(debugDescription)\n<-- [GRAPH]")
             })
             .map { _ in }
             .receive(on: DispatchQueue.main)

@@ -14,7 +14,12 @@ struct TripListScreenView<
 
     @ViewBuilder
     private func content() -> some View {
-        Color(from: .black)
+        LoaderView(
+            requestState: viewModel.connectionRequest,
+            onNotAsked: { viewModel.reloadConnections() }
+        ) {
+            Color(from: .black)
+        }
     }
 
 }
