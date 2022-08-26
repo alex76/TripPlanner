@@ -1,8 +1,11 @@
+import DesignSystem
 import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, world!")
+
+        TextView(localizedEnum: Resource.Text.greeting)
+            .foregroundColor(Color(from: .black))
             .padding()
     }
 }

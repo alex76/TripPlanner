@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "DesignSystem",
+    defaultLocalization: "en",
     platforms: [
         .iOS(.v15)
     ],
@@ -14,11 +15,15 @@ let package = Package(
             targets: ["DesignSystem"]
         )
     ],
-    dependencies: [],
+    dependencies: [
+        .package(path: "../../Core"),
+        .package(path: "../../Utilities"),
+    ],
     targets: [
         .target(
             name: "DesignSystem",
-            dependencies: []
+            dependencies: ["Core", "Utilities"],
+            resources: [.process("Resources")]
         ),
         .testTarget(
             name: "DesignSystemTests",
