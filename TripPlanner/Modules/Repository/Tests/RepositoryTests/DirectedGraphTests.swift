@@ -36,6 +36,33 @@ final class DirectedGraphTests: XCTestCase {
         XCTAssertEqual(2, graph.verticesCount())
     }
 
+    func testDuplicateVertices() {
+        let v1 = Vertex<Int>(1)
+        let v2 = Vertex<Int>(2)
+
+        let graph = DirectedGraph<Int>()
+        graph.addVertex(v1)
+        graph.addVertex(v1)
+        graph.addVertex(v1)
+        graph.addVertex(v2)
+
+        XCTAssertEqual(2, graph.verticesCount())
+    }
+
+    func testDuplicateEdges() {
+        let v1 = Vertex<Int>(1)
+        let v2 = Vertex<Int>(2)
+        let graph = constructGraph(with: [v1, v2])
+
+        graph.addEdge(source: v1, destination: v1)
+        graph.addEdge(source: v1, destination: v2)
+        graph.addEdge(source: v1, destination: v2)
+        graph.addEdge(source: v1, destination: v2)
+
+        XCTAssertEqual(1, graph.edgesCount())
+        XCTAssertEqual(2, graph.verticesCount())
+    }
+
     func testAdjacentEdges() {
         let v1 = Vertex<Int>(1)
         let v3 = Vertex<Int>(3)
@@ -57,20 +84,6 @@ final class DirectedGraphTests: XCTestCase {
             graph.adjacentEdges(forVertex: v7).map(\.destination.value),
             [3, 5, 10]
         )
-    }
-
-    func testDuplicateEdges() {
-        let v1 = Vertex<Int>(1)
-        let v2 = Vertex<Int>(2)
-        let graph = constructGraph(with: [v1, v2])
-
-        graph.addEdge(source: v1, destination: v1)
-        graph.addEdge(source: v1, destination: v2)
-        graph.addEdge(source: v1, destination: v2)
-        graph.addEdge(source: v1, destination: v2)
-
-        XCTAssertEqual(1, graph.edgesCount())
-        XCTAssertEqual(2, graph.verticesCount())
     }
 
     func testLeafs() {

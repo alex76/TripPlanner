@@ -5,9 +5,14 @@ class DirectedGraph<Element: Equatable> {
 
     init() {}
 
-    func addVertex(_ vertex: Vertex<Element>) {
+    @discardableResult
+    func addVertex(_ vertex: Vertex<Element>) -> Vertex<Element> {
+        if let foundVertex = vertices.first(where: { $0.value == vertex.value }) {
+            return foundVertex
+        }
         vertex.index = vertices.count
         vertices.append(vertex)
+        return vertex
     }
 
     func addEdge(
@@ -15,14 +20,15 @@ class DirectedGraph<Element: Equatable> {
         destination: Vertex<Element>,
         weight: Double? = nil
     ) {
-        if source != destination && source.edgeForDestination(destination) == nil {
-            let newEdge = DirectedEdge<Element>(
-                source: source,
-                destination: destination,
-                weight: weight
-            )
-            source.addEdge(newEdge)
+        guard source != destination && source.edgeForDestination(destination) == nil else {
+            return
         }
+        let newEdge = DirectedEdge<Element>(
+            source: source,
+            destination: destination,
+            weight: weight
+        )
+        source.addEdge(newEdge)
     }
 
     func adjacentEdges(forVertex vertex: Vertex<Element>) -> [DirectedEdge<Element>] {
@@ -54,18 +60,18 @@ class DirectedGraph<Element: Equatable> {
 // MARK: - Find connections
 extension DirectedGraph {
 
-    typealias Connection = (score: Double, routes: [DirectedEdge<Element>])
+    typealias SearchResult = [(score: Double, routes: [DirectedEdge<Element>])]
 
     func findConnections(
         from source: Vertex<Element>,
         to destination: Vertex<Element>
-    ) -> [Connection] {
+    ) -> SearchResult {
         guard
             vertices.contains(source)
                 && vertices.contains(destination)
                 && source != destination
         else { return [] }
-        var connections: [Connection] = []
+        var connections: SearchResult = []
         findConnections(
             from: source,
             to: destination,
@@ -81,7 +87,7 @@ extension DirectedGraph {
         to finalDestination: Vertex<Element>,
         score: Double,
         visited: [DirectedEdge<Element>],
-        connections: inout [Connection]
+        connections: inout SearchResult
     ) {
         for edge in source.adjacentEdges {
             let newVisited = visited + [edge]
