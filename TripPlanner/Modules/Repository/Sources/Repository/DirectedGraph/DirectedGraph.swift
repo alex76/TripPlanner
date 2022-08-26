@@ -98,7 +98,7 @@ extension DirectedGraph {
 
             if nextStop.index == finalDestination.index {
                 connections.append((score: newScore, routes: newVisited))
-                return
+                continue
             }
             if visitedVertices.contains(nextStop.index) {
                 continue

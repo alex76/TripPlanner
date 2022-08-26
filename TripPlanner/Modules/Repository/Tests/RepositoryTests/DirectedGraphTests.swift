@@ -229,6 +229,11 @@ final class DirectedGraphTests: XCTestCase {
             ["Cape Town", "London", "New York", "Los Angeles"],
             connections6[safe: 0]?.routes.vertices.map(\.value)
         )
+
+        // connection: los angeles -> london
+        let connections7 = graph.findConnections(from: losAngeles, to: london)
+            .sorted(by: { $0.score < $1.score })
+        XCTAssertEqual(2, connections7.count)
     }
 
 }
