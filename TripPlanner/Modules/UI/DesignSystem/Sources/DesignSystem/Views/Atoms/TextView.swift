@@ -83,7 +83,6 @@ public func applyTextViewStyle(_ text: Text, style: TextViewStyle) -> Text {
         return
             customText
             .font(Theme.fonts.main(15, relativeTo: .body))
-            .fontWeight(.regular)
     case .headline:
         return
             customText

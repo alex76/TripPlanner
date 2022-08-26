@@ -9,6 +9,8 @@
 
 // MARK: - Trip List
 "tui.pripplanner.triplist.selectCity" = "Select city";
+"tui.pripplanner.triplist.foundTrips" = "Found trips:";
+"tui.pripplanner.triplist.price" = "price";
 
 // MARK: - City picker
 "tui.pripplanner.citypicker.cityPicker" = "City Picker";

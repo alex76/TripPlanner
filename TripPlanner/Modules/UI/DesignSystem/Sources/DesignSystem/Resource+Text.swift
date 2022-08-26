@@ -27,6 +27,8 @@ extension Resource.Text {
         public static var prefix: String = Resource.Text.prefix + "triplist."
 
         case selectCity
+        case foundTrips
+        case price
     }
 }
 

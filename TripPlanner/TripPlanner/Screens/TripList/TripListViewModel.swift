@@ -11,6 +11,8 @@ protocol TripListViewModelProtocol: ObservableObject {
     var sourceCity: City? { get set }
     var destinationCity: City? { get set }
 
+    var trips: [Trip] { get }
+
     func reloadConnections()
 }
 
@@ -28,7 +30,15 @@ final class TripListViewModel: BaseViewModel, TripListViewModelProtocol, TripLis
         guard let source = sourceCity,
             let destination = destinationCity
         else { return }
-        print("update trips")
+
+        loadingCancellables.cancelAll()
+        trips = []
+        repository.findTrips(from: source, to: destination)
+            .sinkToResult { [weak self] in
+                guard case .success(let data) = $0 else { return }
+                self?.trips = data
+            }
+            .store(in: &loadingCancellables)
     }
 
     // MARK: - Flow state
@@ -40,6 +50,7 @@ final class TripListViewModel: BaseViewModel, TripListViewModelProtocol, TripLis
 
     // MARK: - ViewModelProtocol
     @Published private(set) var connectionRequest: RequestState<Void> = .notAsked
+    @Published private(set) var trips: [Trip] = []
     @Published var sourceCity: City? {
         didSet { updateTrips() }
     }
@@ -61,6 +72,13 @@ final class TripListViewModel: BaseViewModel, TripListViewModelProtocol, TripLis
                 }
             }
             .store(in: &loadingCancellables)
+    }
+}
+
+extension Array where Element == Connection {
+    var stops: [City] {
+        guard let first = self.first?.source else { return [] }
+        return self.reduce([first]) { $0 + [$1.destination] }
     }
 }
 

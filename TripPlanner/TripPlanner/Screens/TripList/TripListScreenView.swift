@@ -1,6 +1,7 @@
 import DesignSystem
 import Foundation
 import SwiftUI
+import Utilities
 
 struct TripListScreenView<
     ViewModel: TripListViewModelProtocol & TripListFlowStateProtocol
@@ -35,9 +36,43 @@ struct TripListScreenView<
                     }
                 )
 
+                if !viewModel.trips.isEmpty {
+                    tripSection()
+                }
+
                 Spacer()
             }
             .padding(Theme.space.s4)
+        }
+    }
+
+    @ViewBuilder
+    private func tripSection() -> some View {
+        VStack {
+            TextView(localizedEnum: Localization.foundTrips, .headline)
+                .padding(.top, Theme.space.s6)
+            List(viewModel.trips, id: \.self) { trip in
+                VStack {
+                    HStack {
+                        (TextView(verbatim: trip.connections.first?.source.name ?? "-")
+                            + TextView(verbatim: " -> ")
+                            + TextView(verbatim: trip.connections.last?.destination.name ?? "-"))
+                            .fontWeight(.bold)
+
+                        Spacer()
+                        TextView(
+                            verbatim:
+                                "\(Localization.price.localized): \(trip.price.rounded(toPlaces: 2))"
+                        )
+                        .fontWeight(.bold)
+                    }
+
+                    let stops = trip.connections.stops.map(\.name).joined(separator: " -> ")
+                    TextView(verbatim: stops, .caption1)
+                        .leadingAligned()
+                }
+                .padding(.vertical, Theme.space.s3)
+            }
         }
     }
 
