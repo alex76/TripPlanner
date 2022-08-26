@@ -29,6 +29,8 @@ extension Resource.Text {
         case selectCity
         case foundTrips
         case price
+        case noTripsBetweenCities
+        case sameCities
     }
 }
 

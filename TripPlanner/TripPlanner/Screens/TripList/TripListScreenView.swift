@@ -36,8 +36,18 @@ struct TripListScreenView<
                     }
                 )
 
-                if !viewModel.trips.isEmpty {
-                    tripSection()
+                if let source = viewModel.sourceCity,
+                    let destination = viewModel.destinationCity
+                {
+                    if source == destination {
+                        TextView(localizedEnum: Localization.sameCities, .headline)
+                            .padding(.top, Theme.space.s6)
+                    } else if !viewModel.trips.isEmpty {
+                        tripSection()
+                    } else {
+                        TextView(localizedEnum: Localization.noTripsBetweenCities, .headline)
+                            .padding(.top, Theme.space.s6)
+                    }
                 }
 
                 Spacer()
