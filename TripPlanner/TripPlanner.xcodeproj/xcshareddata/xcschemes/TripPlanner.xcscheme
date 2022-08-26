@@ -38,6 +38,16 @@
                ReferencedContainer = "container:Modules/Repository">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FA90B73328B8F48500FED2DA"
+               BuildableName = "TripPlannerTests.xctest"
+               BlueprintName = "TripPlannerTests"
+               ReferencedContainer = "container:TripPlanner.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

@@ -5,6 +5,7 @@ import SwiftUI
 struct TripListScreenView<
     ViewModel: TripListViewModelProtocol & TripListFlowStateProtocol
 >: View {
+    private typealias Localization = Resource.Text.TripList
 
     @StateObject var viewModel: ViewModel
 
@@ -18,7 +19,25 @@ struct TripListScreenView<
             requestState: viewModel.connectionRequest,
             onNotAsked: { viewModel.reloadConnections() }
         ) {
-            Color(from: .black)
+            VStack {
+                CapsuleButton(
+                    verbatim: viewModel.sourceCity?.name ?? Localization.selectCity.localized,
+                    action: { [weak viewModel] in
+                        guard let viewModel = viewModel else { return }
+                        viewModel.openCityPicker(for: $viewModel.sourceCity)
+                    }
+                )
+                CapsuleButton(
+                    verbatim: viewModel.destinationCity?.name ?? Localization.selectCity.localized,
+                    action: { [weak viewModel] in
+                        guard let viewModel = viewModel else { return }
+                        viewModel.openCityPicker(for: $viewModel.destinationCity)
+                    }
+                )
+
+                Spacer()
+            }
+            .padding(Theme.space.s4)
         }
     }
 

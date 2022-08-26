@@ -1,1 +1,16 @@
 "tui.pripplanner.greeting" = "Hello, everyone ;P";
+
+// MARK: - Error
+"tui.pripplanner.error.general" = "An Error Has Occurred";
+"tui.pripplanner.error.actionRetry" = "try again";
+"tui.pripplanner.error.noData" = "The data couldn’t be read because it is missing...";
+"tui.pripplanner.error.noConnection" = "No connection available";
+"tui.pripplanner.error.noConnectionCheck" = "Please check your connection.";
+
+// MARK: - Trip List
+"tui.pripplanner.triplist.selectCity" = "Select city";
+
+// MARK: - City picker
+"tui.pripplanner.citypicker.cityPicker" = "City Picker";
+"tui.pripplanner.citypicker.noCityAvailable" = "No city available for the conditions";
+"tui.pripplanner.citypicker.lookForACity" = "Look for a city";

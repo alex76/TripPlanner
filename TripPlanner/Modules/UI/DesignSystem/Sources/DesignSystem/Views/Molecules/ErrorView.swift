@@ -84,6 +84,8 @@ extension ErrorView {
 
 // MARK: - ErrorView.Variant.Content
 extension ErrorView.Variant {
+    private typealias Localization = Resource.Text.Error
+
     struct Content {
         let icon: Image?
         let title: String
@@ -96,23 +98,23 @@ extension ErrorView.Variant {
         case .noConnection:
             return .init(
                 icon: nil,
-                title: "No connection available",
-                description: "Please check your connection.",
-                buttonLabel: "try again"
+                title: Localization.noConnection.localized,
+                description: Localization.noConnectionCheck.localized,
+                buttonLabel: Localization.actionRetry.localized
             )
         case let .noData(key):
             return .init(
                 icon: nil,
-                title: "The data couldn’t be read because it is missing...",
+                title: Localization.noData.localized,
                 description: key,
-                buttonLabel: "try again"
+                buttonLabel: Localization.actionRetry.localized
             )
         case let .general(key):
             return .init(
                 icon: nil,
-                title: "An Error Has Occurred",
+                title: Localization.general.localized,
                 description: key,
-                buttonLabel: "try again"
+                buttonLabel: Localization.actionRetry.localized
             )
         }
     }
