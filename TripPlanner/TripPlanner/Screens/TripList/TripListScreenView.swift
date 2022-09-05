@@ -22,22 +22,22 @@ struct TripListScreenView<
         ) {
             VStack {
                 CapsuleButton(
-                    verbatim: viewModel.sourceCity?.name ?? Localization.selectCity.localized,
+                    verbatim: viewModel.departureCity?.name ?? Localization.selectCity.localized,
                     action: { [weak viewModel] in
                         guard let viewModel = viewModel else { return }
-                        viewModel.openCityPicker(for: $viewModel.sourceCity)
+                        viewModel.openCityPicker(for: $viewModel.departureCity, type: .departure)
                     }
                 )
                 CapsuleButton(
-                    verbatim: viewModel.destinationCity?.name ?? Localization.selectCity.localized,
+                    verbatim: viewModel.arrivalCity?.name ?? Localization.selectCity.localized,
                     action: { [weak viewModel] in
                         guard let viewModel = viewModel else { return }
-                        viewModel.openCityPicker(for: $viewModel.destinationCity)
+                        viewModel.openCityPicker(for: $viewModel.arrivalCity, type: .arrival)
                     }
                 )
 
-                if let source = viewModel.sourceCity,
-                    let destination = viewModel.destinationCity
+                if let source = viewModel.departureCity,
+                    let destination = viewModel.arrivalCity
                 {
                     if source == destination {
                         TextView(localizedEnum: Localization.sameCities, .headline)

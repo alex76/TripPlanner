@@ -39,8 +39,10 @@ extension Resource.Text {
     public enum Citypicker: String, LocalizedEnum {
         public static var prefix: String = Resource.Text.prefix + "citypicker."
 
+        case close
         case noCityAvailable
-        case lookForACity
-        case cityPicker
+        case searchTheCity
+        case selectDeparture
+        case selectArrival
     }
 }

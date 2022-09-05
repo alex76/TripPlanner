@@ -8,8 +8,8 @@ import SwiftUI
 protocol TripListViewModelProtocol: ObservableObject {
     var connectionRequest: RequestState<Void> { get }
 
-    var sourceCity: City? { get set }
-    var destinationCity: City? { get set }
+    var departureCity: City? { get set }
+    var arrivalCity: City? { get set }
 
     var trips: [Trip] { get }
 
@@ -27,13 +27,13 @@ final class TripListViewModel: BaseViewModel, TripListViewModelProtocol, TripLis
     }
 
     private func updateTrips() {
-        guard let source = sourceCity,
-            let destination = destinationCity
+        guard let departure = departureCity,
+            let arrival = arrivalCity
         else { return }
 
         loadingCancellables.cancelAll()
         trips = []
-        repository.findTrips(from: source, to: destination)
+        repository.findTrips(from: departure, to: arrival)
             .sinkToResult { [weak self] in
                 guard case .success(let data) = $0 else { return }
                 self?.trips = data
@@ -44,17 +44,17 @@ final class TripListViewModel: BaseViewModel, TripListViewModelProtocol, TripLis
     // MARK: - Flow state
     @Published var route: TripListRoute?
 
-    func openCityPicker(for city: Binding<City?>) {
-        self.route = .cityPicker(city)
+    func openCityPicker(for city: Binding<City?>, type: DestinationType) {
+        self.route = .cityPicker(city, type: type)
     }
 
     // MARK: - ViewModelProtocol
     @Published private(set) var connectionRequest: RequestState<Void> = .notAsked
     @Published private(set) var trips: [Trip] = []
-    @Published var sourceCity: City? {
+    @Published var departureCity: City? {
         didSet { updateTrips() }
     }
-    @Published var destinationCity: City? {
+    @Published var arrivalCity: City? {
         didSet { updateTrips() }
     }
 

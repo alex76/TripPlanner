@@ -7,17 +7,20 @@ import Utilities
 protocol TripListFlowStateProtocol: ObservableObject {
     var route: TripListRoute? { get set }
 
-    func openCityPicker(for city: Binding<City?>)
+    func openCityPicker(for city: Binding<City?>, type: DestinationType)
 }
 
 // MARK: - Route
 enum TripListRoute: Identifiable {
-    case cityPicker(Binding<City?>)
+    case cityPicker(Binding<City?>, type: DestinationType)
 
     var id: Int {
         switch self {
-        case .cityPicker(let binding):
-            return binding.wrappedValue.hashValue
+        case .cityPicker(let city, let type):
+            var hasher = Hasher()
+            hasher.combine(city.wrappedValue)
+            hasher.combine(type)
+            return hasher.finalize()
         }
     }
 
@@ -51,12 +54,13 @@ struct TripListFlowCoordinator<
                 content: { route in
                     if let tripRepository = container.tripRepository {
                         switch route {
-                        case .cityPicker(let binding):
+                        case .cityPicker(let city, let type):
                             CityPickerScreenView(
                                 viewModel: CityPickerViewModel(
                                     repository: tripRepository,
-                                    city: binding
-                                )
+                                    city: city
+                                ),
+                                type: type
                             )
                         }
                     }

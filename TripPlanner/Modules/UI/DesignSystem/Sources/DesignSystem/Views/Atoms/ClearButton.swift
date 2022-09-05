@@ -18,7 +18,7 @@ public struct ClearButton<Content: View>: View {
             action: self.action,
             label: self.label
         )
-        .buttonStyle(PlainButtonStyle())
+        .buttonStyle(.plain)
         .background(.clear)
     }
 }

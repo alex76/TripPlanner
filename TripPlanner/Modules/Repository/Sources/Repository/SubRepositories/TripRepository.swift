@@ -24,7 +24,7 @@ public protocol TripRepositoryProtocol {
     func refreshConnections() -> Single<Void, Error>
     func fetchCities() -> Single<[City], Error>
     func fetchCities(for searchTerm: String) -> Single<[City], Error>
-    func findTrips(from source: City, to destination: City) -> Single<[Trip], Error>
+    func findTrips(from departure: City, to arrival: City) -> Single<[Trip], Error>
 }
 
 // MARK: - TripRepository
@@ -79,10 +79,10 @@ final class TripRepository: TripRepositoryProtocol {
         .asSingle()
     }
 
-    func findTrips(from source: City, to destination: City) -> Single<[Trip], Error> {
+    func findTrips(from departure: City, to arrival: City) -> Single<[Trip], Error> {
         guard let graph = connectionGraph,
-            let sourceVertex = graph.vertices.first(where: { $0.value == source }),
-            let destinationVertex = graph.vertices.first(where: { $0.value == destination })
+            let sourceVertex = graph.vertices.first(where: { $0.value == departure }),
+            let destinationVertex = graph.vertices.first(where: { $0.value == arrival })
         else {
             return Fail(error: TripRepositoryError.noData).asSingle()
         }
