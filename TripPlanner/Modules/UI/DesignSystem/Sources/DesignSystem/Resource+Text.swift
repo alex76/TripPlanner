@@ -34,6 +34,9 @@ extension Resource.Text {
         case price
         case noTripsBetweenCities
         case sameCities
+        case stop
+        case stops
+        case direct
     }
 }
 

@@ -23,6 +23,7 @@
 		FA90B74A28B9008400FED2DA /* CityPickerScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90B74928B9008400FED2DA /* CityPickerScreenView.swift */; };
 		FA90B74C28B9009500FED2DA /* CityPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90B74B28B9009500FED2DA /* CityPickerViewModel.swift */; };
 		FAE95FC128C7400B00C0E844 /* TripListHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE95FC028C7400B00C0E844 /* TripListHeader.swift */; };
+		FAE95FC328C766B800C0E844 /* TripListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE95FC228C766B800C0E844 /* TripListCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		FA90B74B28B9009500FED2DA /* CityPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityPickerViewModel.swift; sourceTree = "<group>"; };
 		FAE95FBE28C73EB900C0E844 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		FAE95FC028C7400B00C0E844 /* TripListHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripListHeader.swift; sourceTree = "<group>"; };
+		FAE95FC228C766B800C0E844 /* TripListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripListCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				FAE95FC028C7400B00C0E844 /* TripListHeader.swift */,
+				FAE95FC228C766B800C0E844 /* TripListCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -320,6 +323,7 @@
 				FA90B72F28B8E7C100FED2DA /* TripListViewModel.swift in Sources */,
 				FA0EDD7428B781FB0030ACB1 /* DIContainer+.swift in Sources */,
 				FA90B72B28B8E79C00FED2DA /* TripListScreenView.swift in Sources */,
+				FAE95FC328C766B800C0E844 /* TripListCell.swift in Sources */,
 				FA29880828C612180027F392 /* DestinationType.swift in Sources */,
 				FA0EDD5428B773180030ACB1 /* TripPlannerApp.swift in Sources */,
 				FA90B74A28B9008400FED2DA /* CityPickerScreenView.swift in Sources */,

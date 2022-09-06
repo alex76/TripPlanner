@@ -49,6 +49,10 @@ final class TripListViewModel: BaseViewModel, TripListViewModelProtocol, TripLis
         self.route = .cityPicker(city, type: type)
     }
 
+    func openTrip(_ trip: Trip) {
+
+    }
+
     // MARK: - ViewModelProtocol
     @Published private(set) var connectionRequest: RequestState<Void> = .notAsked
     @Published private(set) var trips: [Trip] = []

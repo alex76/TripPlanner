@@ -16,6 +16,9 @@
 "tui.pripplanner.triplist.price" = "price";
 "tui.pripplanner.triplist.noTripsBetweenCities" = "There is no possible connection between the selected cities";
 "tui.pripplanner.triplist.sameCities" = "Cities are same";
+"tui.pripplanner.triplist.stop" = "%d stop";
+"tui.pripplanner.triplist.stops" = "%d stops";
+"tui.pripplanner.triplist.direct" = "Direct";
 
 // MARK: - City picker
 "tui.pripplanner.citypicker.close" = "Close";

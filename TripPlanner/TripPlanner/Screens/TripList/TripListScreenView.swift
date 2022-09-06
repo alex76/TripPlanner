@@ -20,7 +20,7 @@ struct TripListScreenView<
             requestState: viewModel.connectionRequest,
             onNotAsked: { viewModel.reloadConnections() }
         ) {
-            VStack {
+            VStack(spacing: Theme.space.s0) {
                 TripListHeader(
                     departureName: viewModel.departureCity?.name,
                     arrivalName: viewModel.arrivalCity?.name,
@@ -61,32 +61,28 @@ struct TripListScreenView<
 
     @ViewBuilder
     private func tripSection() -> some View {
-        VStack {
-            TextView(localizedEnum: Localization.foundTrips, .headline)
-                .padding(.top, Theme.space.s6)
-            List(viewModel.trips, id: \.self) { trip in
-                VStack {
-                    HStack {
-                        (TextView(verbatim: trip.connections.first?.source.name ?? "-")
-                            + TextView(verbatim: " -> ")
-                            + TextView(verbatim: trip.connections.last?.destination.name ?? "-"))
-                            .fontWeight(.bold)
-
-                        Spacer()
-                        TextView(
-                            verbatim:
-                                "\(Localization.price.localized): \(trip.price.rounded(toPlaces: 2))"
-                        )
-                        .fontWeight(.bold)
-                    }
-
-                    let stops = trip.connections.stops.map(\.name).joined(separator: " -> ")
-                    TextView(verbatim: stops, .caption1)
-                        .leadingAligned()
-                }
-                .padding(.vertical, Theme.space.s3)
-            }
+        List(viewModel.trips, id: \.self) { trip in
+            TripListCell(
+                departure: trip.connections.first?.source.name ?? "-",
+                arrival: trip.connections.last?.destination.name ?? "-",
+                stops: trip.connections.stops.count - 2,
+                price: trip.price,
+                backgroundColor: Color(from: .blueTranslucent).opacity(0.05),
+                borderColor: Color(from: .grayBorder),
+                didSelect: { [weak viewModel] in viewModel?.openTrip(trip) }
+            )
+            .listRowSeparator(.hidden)
+            .listRowBackground(Color.clear)
+            .listRowInsets(
+                EdgeInsets(
+                    top: Theme.space.s2,
+                    leading: Theme.space.s4,
+                    bottom: Theme.space.s2,
+                    trailing: Theme.space.s4
+                )
+            )
         }
+        .listStyle(.plain)
     }
 
 }

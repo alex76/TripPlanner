@@ -71,7 +71,6 @@ extension TripListHeader {
                             )
 
                         Spacer()
-
                     }
                     .frame(maxWidth: .infinity)
                     .padding(Theme.space.s2)
@@ -92,6 +91,9 @@ extension TripListHeader {
                 onSelectArrival: {},
                 onSwapDestinations: {}
             )
+            .padding()
+            .background(Color.black)
+            .previewLayout(.sizeThatFits)
         }
     }
 #endif

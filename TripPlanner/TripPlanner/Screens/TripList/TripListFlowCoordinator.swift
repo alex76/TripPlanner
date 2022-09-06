@@ -9,6 +9,7 @@ protocol TripListFlowStateProtocol: ObservableObject {
     var route: TripListRoute? { get set }
 
     func openCityPicker(for city: Binding<City?>, type: DestinationType)
+    func openTrip(_ trip: Trip)
 }
 
 // MARK: - Route
