@@ -14,6 +14,7 @@ protocol TripListViewModelProtocol: ObservableObject {
     var trips: [Trip] { get }
 
     func reloadConnections()
+    func swapDestinations()
 }
 
 // MARK: - TripListViewModel
@@ -72,6 +73,15 @@ final class TripListViewModel: BaseViewModel, TripListViewModelProtocol, TripLis
                 }
             }
             .store(in: &loadingCancellables)
+    }
+
+    func swapDestinations() {
+        guard departureCity != nil || arrivalCity != nil else { return }
+        let departure = departureCity
+        let arrival = arrivalCity
+
+        departureCity = arrival
+        arrivalCity = departure
     }
 }
 

@@ -54,12 +54,7 @@ struct CityPickerScreenView<
                     : Localization.selectArrival.localized
             )
         }
-        .navigationAppearance(
-            backgroundColor: .blue,
-            foregroundColor: .white,
-            tintColor: .white,
-            hideSeparator: true
-        )
+        .blueNavigationAppearance()
         .navigationViewStyle(StackNavigationViewStyle())
     }
 }

@@ -11,7 +11,7 @@ private struct NavigationAppearanceModifier: ViewModifier {
         navBarAppearance.backgroundEffect = UIBlurEffect(style: .systemUltraThinMaterial)
         navBarAppearance.titleTextAttributes = [.foregroundColor: foregroundColor]
         navBarAppearance.largeTitleTextAttributes = [.foregroundColor: foregroundColor]
-        navBarAppearance.backgroundColor = backgroundColor.withAlphaComponent(0.65)
+        navBarAppearance.backgroundColor = backgroundColor
         if hideSeparator {
             navBarAppearance.shadowColor = .clear
         }
@@ -53,6 +53,15 @@ extension View {
                 tintColor: tintColor != nil ? UIColor(tintColor!) : nil,
                 hideSeparator: hideSeparator
             )
+        )
+    }
+
+    public func blueNavigationAppearance() -> some View {
+        navigationAppearance(
+            backgroundColor: Color(from: .blueTranslucent),
+            foregroundColor: Color(from: .white),
+            tintColor: Color(from: .white),
+            hideSeparator: true
         )
     }
 }

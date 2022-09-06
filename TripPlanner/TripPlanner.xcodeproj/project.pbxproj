@@ -22,6 +22,7 @@
 		FA90B73728B8F48500FED2DA /* TripPlannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90B73628B8F48500FED2DA /* TripPlannerTests.swift */; };
 		FA90B74A28B9008400FED2DA /* CityPickerScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90B74928B9008400FED2DA /* CityPickerScreenView.swift */; };
 		FA90B74C28B9009500FED2DA /* CityPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90B74B28B9009500FED2DA /* CityPickerViewModel.swift */; };
+		FAE95FC128C7400B00C0E844 /* TripListHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE95FC028C7400B00C0E844 /* TripListHeader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,8 @@
 		FA90B73628B8F48500FED2DA /* TripPlannerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripPlannerTests.swift; sourceTree = "<group>"; };
 		FA90B74928B9008400FED2DA /* CityPickerScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityPickerScreenView.swift; sourceTree = "<group>"; };
 		FA90B74B28B9009500FED2DA /* CityPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityPickerViewModel.swift; sourceTree = "<group>"; };
+		FAE95FBE28C73EB900C0E844 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		FAE95FC028C7400B00C0E844 /* TripListHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripListHeader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +102,7 @@
 		FA0EDD5228B773180030ACB1 /* TripPlanner */ = {
 			isa = PBXGroup;
 			children = (
+				FAE95FBE28C73EB900C0E844 /* Info.plist */,
 				FA29880628C6120F0027F392 /* Model */,
 				FA0EDD7228B781EC0030ACB1 /* Extensions */,
 				FA0EDD5328B773180030ACB1 /* TripPlannerApp.swift */,
@@ -171,6 +175,7 @@
 		FA90B72928B8E77F00FED2DA /* TripList */ = {
 			isa = PBXGroup;
 			children = (
+				FAE95FBF28C73FF000C0E844 /* Views */,
 				FA90B72A28B8E79C00FED2DA /* TripListScreenView.swift */,
 				FA90B72C28B8E7B000FED2DA /* TripListFlowCoordinator.swift */,
 				FA90B72E28B8E7C100FED2DA /* TripListViewModel.swift */,
@@ -193,6 +198,14 @@
 				FA90B74B28B9009500FED2DA /* CityPickerViewModel.swift */,
 			);
 			path = Citypicker;
+			sourceTree = "<group>";
+		};
+		FAE95FBF28C73FF000C0E844 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FAE95FC028C7400B00C0E844 /* TripListHeader.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -311,6 +324,7 @@
 				FA0EDD5428B773180030ACB1 /* TripPlannerApp.swift in Sources */,
 				FA90B74A28B9008400FED2DA /* CityPickerScreenView.swift in Sources */,
 				FA90B74C28B9009500FED2DA /* CityPickerViewModel.swift in Sources */,
+				FAE95FC128C7400B00C0E844 /* TripListHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,6 +472,7 @@
 				DEVELOPMENT_TEAM = 478LCHZW7N;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TripPlanner/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -488,6 +503,7 @@
 				DEVELOPMENT_TEAM = 478LCHZW7N;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TripPlanner/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

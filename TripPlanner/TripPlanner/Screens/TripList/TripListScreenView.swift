@@ -21,20 +21,22 @@ struct TripListScreenView<
             onNotAsked: { viewModel.reloadConnections() }
         ) {
             VStack {
-                CapsuleButton(
-                    verbatim: viewModel.departureCity?.name ?? Localization.selectCity.localized,
-                    action: { [weak viewModel] in
+                TripListHeader(
+                    departureName: viewModel.departureCity?.name,
+                    arrivalName: viewModel.arrivalCity?.name,
+                    onSelectDeparture: { [weak viewModel] in
                         guard let viewModel = viewModel else { return }
                         viewModel.openCityPicker(for: $viewModel.departureCity, type: .departure)
-                    }
-                )
-                CapsuleButton(
-                    verbatim: viewModel.arrivalCity?.name ?? Localization.selectCity.localized,
-                    action: { [weak viewModel] in
+                    },
+                    onSelectArrival: { [weak viewModel] in
                         guard let viewModel = viewModel else { return }
                         viewModel.openCityPicker(for: $viewModel.arrivalCity, type: .arrival)
-                    }
+                    },
+                    onSwapDestinations: { [weak viewModel] in viewModel?.swapDestinations() }
                 )
+                .padding(.top, Theme.space.s2)
+                .padding([.bottom, .horizontal], Theme.space.s4)
+                .background(Color(from: .blueTranslucent).background(.ultraThinMaterial))
 
                 if let source = viewModel.departureCity,
                     let destination = viewModel.arrivalCity
@@ -52,8 +54,9 @@ struct TripListScreenView<
 
                 Spacer()
             }
-            .padding(Theme.space.s4)
         }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(Localization.connection.localized)
     }
 
     @ViewBuilder

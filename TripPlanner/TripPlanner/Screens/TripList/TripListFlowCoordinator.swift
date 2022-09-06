@@ -1,4 +1,5 @@
 import Core
+import DesignSystem
 import Repository
 import SwiftUI
 import Utilities
@@ -48,23 +49,38 @@ struct TripListFlowCoordinator<
     }
 
     var body: some View {
-        content()
-            .sheet(
-                item: activeSheet,
-                content: { route in
-                    if let tripRepository = container.tripRepository {
-                        switch route {
-                        case .cityPicker(let city, let type):
-                            CityPickerScreenView(
-                                viewModel: CityPickerViewModel(
-                                    repository: tripRepository,
-                                    city: city
-                                ),
-                                type: type
-                            )
-                        }
+        NavigationView {
+            content()
+        }
+        .navigationViewStyle(.stack)
+        .blueNavigationAppearance()
+        .modalRoute(for: activeSheet, container: container)
+    }
+}
+
+// MARK: - Private Helpers
+extension View {
+    @ViewBuilder
+    fileprivate func modalRoute(
+        for activeSheet: Binding<TripListRoute?>,
+        container: DIContainer
+    ) -> some View {
+        self.sheet(
+            item: activeSheet,
+            content: { route in
+                if let tripRepository = container.tripRepository {
+                    switch route {
+                    case .cityPicker(let city, let type):
+                        CityPickerScreenView(
+                            viewModel: CityPickerViewModel(
+                                repository: tripRepository,
+                                city: city
+                            ),
+                            type: type
+                        )
                     }
                 }
-            )
+            }
+        )
     }
 }

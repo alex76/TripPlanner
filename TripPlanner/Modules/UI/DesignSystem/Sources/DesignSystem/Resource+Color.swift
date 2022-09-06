@@ -9,6 +9,8 @@ extension Resource {
         case gray
         case grayBackground
         case grayBorder
+        case blue
+        case blueTranslucent
     }
 }
 
