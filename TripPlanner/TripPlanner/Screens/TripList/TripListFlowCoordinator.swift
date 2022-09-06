@@ -2,6 +2,7 @@ import Core
 import DesignSystem
 import Repository
 import SwiftUI
+import SwiftUINavigation
 import Utilities
 
 // MARK: - TripListFlowStateProtocol
@@ -13,23 +14,21 @@ protocol TripListFlowStateProtocol: ObservableObject {
 }
 
 // MARK: - Route
-enum TripListRoute: Identifiable {
-    case cityPicker(Binding<City?>, type: DestinationType)
+enum TripListRoute {
+    case cityPicker(city: Binding<City?>, type: DestinationType)
+    case tripDetail(Trip)
 
-    var id: Int {
+    var navigationLink: TripListRoute? {
         switch self {
-        case .cityPicker(let city, let type):
-            var hasher = Hasher()
-            hasher.combine(city.wrappedValue)
-            hasher.combine(type)
-            return hasher.finalize()
+        case .tripDetail: return self
+        default: return nil
         }
     }
 
     var modal: TripListRoute? {
         switch self {
-        case .cityPicker:
-            return self
+        case .cityPicker: return self
+        default: return nil
         }
     }
 }
@@ -49,39 +48,58 @@ struct TripListFlowCoordinator<
         $state.route.map(get: { $0?.modal }, set: { $0 })
     }
 
+    private var activeLink: Binding<TripListRoute?> {
+        $state.route.map(get: { $0?.navigationLink }, set: { $0 })
+    }
+
     var body: some View {
         NavigationView {
-            content()
+            ZStack {
+                content()
+                navigationLinks
+            }
         }
         .navigationViewStyle(.stack)
         .blueNavigationAppearance()
-        .modalRoute(for: activeSheet, container: container)
-    }
-}
-
-// MARK: - Private Helpers
-extension View {
-    @ViewBuilder
-    fileprivate func modalRoute(
-        for activeSheet: Binding<TripListRoute?>,
-        container: DIContainer
-    ) -> some View {
-        self.sheet(
-            item: activeSheet,
-            content: { route in
-                if let tripRepository = container.tripRepository {
-                    switch route {
-                    case .cityPicker(let city, let type):
-                        CityPickerScreenView(
-                            viewModel: CityPickerViewModel(
-                                repository: tripRepository,
-                                city: city
-                            ),
-                            type: type
-                        )
-                    }
-                }
-            }
+        .sheet(
+            unwrapping: activeSheet,
+            case: /TripListRoute.cityPicker,
+            content: cityPickerDestination
         )
+    }
+
+    @ViewBuilder private var navigationLinks: some View {
+        ZStack {
+            NavigationLink(
+                unwrapping: activeLink,
+                case: /TripListRoute.tripDetail,
+                destination: tripDetailDestination,
+                onNavigate: { _ in },
+                label: { EmptyView() }
+            )
+        }
+    }
+
+    // MARK: - Destinations
+    @ViewBuilder
+    private func tripDetailDestination(_ value: Binding<Trip>) -> some View {
+        TripStopListScreenView(
+            viewModel: TripStopListViewModel(trip: value.wrappedValue)
+        )
+    }
+
+    @ViewBuilder
+    private func cityPickerDestination(
+        _ value: Binding<(city: Binding<City?>, type: DestinationType)>
+    ) -> some View {
+        IfLet(.constant(container.tripRepository)) { $repository in
+            CityPickerScreenView(
+                viewModel: CityPickerViewModel(
+                    repository: repository,
+                    city: value.wrappedValue.city
+                ),
+                type: value.wrappedValue.type
+            )
+        }
     }
 }

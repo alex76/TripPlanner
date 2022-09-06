@@ -10,6 +10,8 @@ struct TripListCell: View {
     private let price: Double
     private let backgroundColor: Color
     private let borderColor: Color
+    private let showBadge: Bool
+    private let showArrow: Bool
     private let didSelect: () -> Void
 
     private let priceFormatter: NumberFormatter = {
@@ -27,6 +29,8 @@ struct TripListCell: View {
         price: Double,
         backgroundColor: Color = Color(from: .white),
         borderColor: Color = Color(from: .grayBorder),
+        showBadge: Bool = true,
+        showArrow: Bool = true,
         didSelect: @escaping () -> Void
     ) {
         self.departure = departure
@@ -35,6 +39,8 @@ struct TripListCell: View {
         self.price = price
         self.backgroundColor = backgroundColor
         self.borderColor = borderColor
+        self.showBadge = showBadge
+        self.showArrow = showArrow
         self.didSelect = didSelect
     }
 
@@ -58,7 +64,7 @@ struct TripListCell: View {
                 )
                 .foregroundColor(Color(from: .black))
             }
-            if stops > 0 {
+            if showArrow {
                 Image(systemName: "chevron.forward")
                     .font(.system(size: 15))
                     .foregroundColor(Color(from: .black))
@@ -82,20 +88,22 @@ struct TripListCell: View {
                 TextView(verbatim: departure, .caption1).fontWeight(.bold)
                     .padding(.vertical, Theme.space.s2)
             }
-            HStack {
-                ConnectionLine(
-                    position: stops == 0 ? .middle : .middleGap,
-                    lineWidth: Theme.borderWidths.b3,
-                    background: Color(from: .black)
-                )
-                .frame(width: 30, height: 36)
+            if showBadge {
+                HStack {
+                    ConnectionLine(
+                        position: stops == 0 ? .middle : .middleGap,
+                        lineWidth: Theme.borderWidths.b3,
+                        background: Color(from: .black)
+                    )
+                    .frame(width: 30, height: 36)
 
-                CapsuleView(radius: Theme.radii.r3) {
-                    TextView(verbatim: badge(stops), .caption2)
-                        .foregroundColor(Color(from: .white))
-                        .padding(.vertical, Theme.space.s1)
-                        .padding(.horizontal, Theme.space.s2)
-                        .background(Color(from: .blueTranslucent))
+                    CapsuleView(radius: Theme.radii.r3) {
+                        TextView(verbatim: badge(stops), .caption2)
+                            .foregroundColor(Color(from: .white))
+                            .padding(.vertical, Theme.space.s1)
+                            .padding(.horizontal, Theme.space.s2)
+                            .background(Color(from: .blueTranslucent))
+                    }
                 }
             }
             HStack {

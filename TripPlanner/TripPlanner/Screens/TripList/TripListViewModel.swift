@@ -46,11 +46,11 @@ final class TripListViewModel: BaseViewModel, TripListViewModelProtocol, TripLis
     @Published var route: TripListRoute?
 
     func openCityPicker(for city: Binding<City?>, type: DestinationType) {
-        self.route = .cityPicker(city, type: type)
+        self.route = .cityPicker(city: city, type: type)
     }
 
     func openTrip(_ trip: Trip) {
-
+        self.route = .tripDetail(trip)
     }
 
     // MARK: - ViewModelProtocol
@@ -96,6 +96,7 @@ extension Array where Element == Connection {
     }
 }
 
+// MARK: - Preview
 #if DEBUG
     extension TripListViewModel {
         static var preview: Self {
