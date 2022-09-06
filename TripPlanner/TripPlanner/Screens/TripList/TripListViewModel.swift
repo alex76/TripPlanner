@@ -8,6 +8,8 @@ import SwiftUI
 protocol TripListViewModelProtocol: ObservableObject {
     var connectionRequest: RequestState<Void> { get }
 
+    var isLoading: Bool { get }
+
     var departureCity: City? { get set }
     var arrivalCity: City? { get set }
 
@@ -32,12 +34,29 @@ final class TripListViewModel: BaseViewModel, TripListViewModelProtocol, TripLis
             let arrival = arrivalCity
         else { return }
 
+        isLoading = true
         loadingCancellables.cancelAll()
         trips = []
         repository.findTrips(from: departure, to: arrival)
             .sinkToResult { [weak self] in
-                guard case .success(let data) = $0 else { return }
-                self?.trips = data
+                if case .success(let data) = $0 {
+                    self?.trips = data
+                }
+                self?.isLoading = false
+            }
+            .store(in: &loadingCancellables)
+    }
+
+    private func loadSuggestions() {
+        isLoading = true
+        loadingCancellables.cancelAll()
+        trips = []
+        repository.fetchSuggestions()
+            .sinkToResult { [weak self] in
+                if case .success(let data) = $0 {
+                    self?.trips = data
+                }
+                self?.isLoading = false
             }
             .store(in: &loadingCancellables)
     }
@@ -55,13 +74,14 @@ final class TripListViewModel: BaseViewModel, TripListViewModelProtocol, TripLis
 
     // MARK: - ViewModelProtocol
     @Published private(set) var connectionRequest: RequestState<Void> = .notAsked
-    @Published private(set) var trips: [Trip] = []
+    @Published private(set) var isLoading: Bool = false
     @Published var departureCity: City? {
         didSet { updateTrips() }
     }
     @Published var arrivalCity: City? {
         didSet { updateTrips() }
     }
+    private(set) var trips: [Trip] = []
 
     func reloadConnections() {
         loadingCancellables.cancelAll()
@@ -72,6 +92,7 @@ final class TripListViewModel: BaseViewModel, TripListViewModelProtocol, TripLis
                 switch result {
                 case .success:
                     self?.connectionRequest = .success(())
+                    self?.loadSuggestions()
                 case .failure(let error):
                     self?.connectionRequest = .failure(error)
                 }
@@ -83,6 +104,9 @@ final class TripListViewModel: BaseViewModel, TripListViewModelProtocol, TripLis
         guard departureCity != nil || arrivalCity != nil else { return }
         let departure = departureCity
         let arrival = arrivalCity
+
+        departureCity = nil
+        arrivalCity = nil
 
         departureCity = arrival
         arrivalCity = departure

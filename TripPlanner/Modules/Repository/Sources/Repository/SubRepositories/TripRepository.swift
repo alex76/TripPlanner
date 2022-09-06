@@ -1,6 +1,7 @@
 import Combine
 import Core
 import Foundation
+import SwiftUI
 import Utilities
 
 // MARK: - URL
@@ -24,6 +25,7 @@ public protocol TripRepositoryProtocol {
     func refreshConnections() -> Single<Void, Error>
     func fetchCities() -> Single<[City], Error>
     func fetchCities(for searchTerm: String) -> Single<[City], Error>
+    func fetchSuggestions() -> Single<[Trip], Error>
     func findTrips(from departure: City, to arrival: City) -> Single<[Trip], Error>
 }
 
@@ -31,6 +33,10 @@ public protocol TripRepositoryProtocol {
 final class TripRepository: TripRepositoryProtocol {
 
     private var connectionGraph: DirectedGraph<City>?
+
+    let processingQueue: DispatchQueue = .init(
+        label: "queue.repository.trip.processing"
+    )
 
     init() {}
     init(graph: DirectedGraph<City>?) {
@@ -79,6 +85,35 @@ final class TripRepository: TripRepositoryProtocol {
         .asSingle()
     }
 
+    func fetchSuggestions() -> Single<[Trip], Error> {
+        guard let graph = connectionGraph else {
+            return Fail(error: TripRepositoryError.noData).asSingle()
+        }
+        return Deferred {
+            Future { promise in
+                let trips = graph.edges()
+                    .map { edge -> Trip in
+                        .init(
+                            price: edge.weight ?? 0,
+                            connections: [
+                                .init(
+                                    source: edge.source.value,
+                                    destination: edge.destination.value,
+                                    price: edge.weight ?? 0
+                                )
+                            ]
+                        )
+                    }
+                    .sorted(by: { $0.price < $1.price })
+                promise(.success(trips))
+            }
+        }
+        .subscribe(on: processingQueue)
+        .delay(for: .milliseconds(500), scheduler: processingQueue)
+        .receive(on: DispatchQueue.main)
+        .asSingle()
+    }
+
     func findTrips(from departure: City, to arrival: City) -> Single<[Trip], Error> {
         guard let graph = connectionGraph,
             let sourceVertex = graph.vertices.first(where: { $0.value == departure }),
@@ -86,23 +121,30 @@ final class TripRepository: TripRepositoryProtocol {
         else {
             return Fail(error: TripRepositoryError.noData).asSingle()
         }
-        let trip = graph.findConnections(from: sourceVertex, to: destinationVertex)
-            .map { graphResult -> Trip in
-                return .init(
-                    price: graphResult.score,
-                    connections: graphResult.routes.map {
-                        .init(
-                            source: $0.source.value,
-                            destination: $0.destination.value,
-                            price: $0.weight ?? 0
+
+        return Deferred {
+            Future { promise in
+                let trips = graph.findConnections(from: sourceVertex, to: destinationVertex)
+                    .map { graphResult -> Trip in
+                        return .init(
+                            price: graphResult.score,
+                            connections: graphResult.routes.map {
+                                .init(
+                                    source: $0.source.value,
+                                    destination: $0.destination.value,
+                                    price: $0.weight ?? 0
+                                )
+                            }
                         )
                     }
-                )
+                    .sorted(by: { $0.price < $1.price })
+                promise(.success(trips))
             }
-            .sorted(by: { $0.price < $1.price })
-        return Just(trip)
-            .setFailureType(to: Swift.Error.self)
-            .asSingle()
+        }
+        .subscribe(on: processingQueue)
+        .delay(for: .milliseconds(500), scheduler: processingQueue)
+        .receive(on: DispatchQueue.main)
+        .asSingle()
     }
 
 }
@@ -133,6 +175,9 @@ final class TripRepository: TripRepositoryProtocol {
             Empty().asSingle()
         }
         public func fetchCities(for searchTerm: String) -> Single<[City], Error> {
+            Empty().asSingle()
+        }
+        public func fetchSuggestions() -> Single<[Trip], Error> {
             Empty().asSingle()
         }
         public func findTrips(from source: City, to destination: City) -> Single<[Trip], Error> {

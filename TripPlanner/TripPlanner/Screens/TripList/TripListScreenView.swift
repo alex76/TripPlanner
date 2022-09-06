@@ -18,7 +18,8 @@ struct TripListScreenView<
     private func content() -> some View {
         LoaderView(
             requestState: viewModel.connectionRequest,
-            onNotAsked: { viewModel.reloadConnections() }
+            onNotAsked: { viewModel.reloadConnections() },
+            loadingView: { CircleLoadingView().eraseToAnyView() }
         ) {
             VStack(spacing: Theme.space.s0) {
                 TripListHeader(
@@ -38,19 +39,17 @@ struct TripListScreenView<
                 .padding([.bottom, .horizontal], Theme.space.s4)
                 .background(Color(from: .blueTranslucent).background(.ultraThinMaterial))
 
-                if let source = viewModel.departureCity,
-                    let destination = viewModel.arrivalCity
-                {
-                    if source == destination {
-                        TextView(localizedEnum: Localization.sameCities, .headline)
-                            .padding(.top, Theme.space.s6)
-                    } else if !viewModel.trips.isEmpty {
-                        tripSection()
-                    } else {
-                        TextView(localizedEnum: Localization.noTripsBetweenCities, .headline)
-                            .padding(.top, Theme.space.s6)
+                tripSection()
+                    .overlay {
+                        if viewModel.isLoading {
+                            CircleLoadingView()
+                        } else if viewModel.trips.isEmpty {
+                            TextView(localizedEnum: Localization.noTripsBetweenCities, .headline)
+                                .multilineTextAlignment(.center)
+                                .foregroundColor(Color(from: .gray))
+                                .padding(.horizontal, Theme.space.s5)
+                        }
                     }
-                }
 
                 Spacer()
             }
@@ -61,26 +60,38 @@ struct TripListScreenView<
 
     @ViewBuilder
     private func tripSection() -> some View {
-        List(viewModel.trips, id: \.self) { trip in
-            TripListCell(
-                departure: trip.connections.first?.source.name ?? "-",
-                arrival: trip.connections.last?.destination.name ?? "-",
-                stops: trip.connections.stops.count - 2,
-                price: trip.price,
-                backgroundColor: Color(from: .blueTranslucent).opacity(0.05),
-                borderColor: Color(from: .grayBorder),
-                didSelect: { [weak viewModel] in viewModel?.openTrip(trip) }
-            )
-            .listRowSeparator(.hidden)
-            .listRowBackground(Color.clear)
-            .listRowInsets(
-                EdgeInsets(
-                    top: Theme.space.s2,
-                    leading: Theme.space.s4,
-                    bottom: Theme.space.s2,
-                    trailing: Theme.space.s4
-                )
-            )
+        List {
+            Section {
+                ForEach(viewModel.trips, id: \.self) { trip in
+                    TripListCell(
+                        departure: trip.connections.first?.source.name ?? "-",
+                        arrival: trip.connections.last?.destination.name ?? "-",
+                        stops: trip.connections.stops.count - 2,
+                        price: trip.price,
+                        backgroundColor: Color(from: .blueTranslucent).opacity(0.05),
+                        borderColor: Color(from: .grayBorder),
+                        didSelect: { [weak viewModel] in viewModel?.openTrip(trip) }
+                    )
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
+                    .listRowInsets(
+                        EdgeInsets(
+                            top: Theme.space.s2,
+                            leading: Theme.space.s4,
+                            bottom: Theme.space.s2,
+                            trailing: Theme.space.s4
+                        )
+                    )
+                }
+            } header: {
+                if !viewModel.isLoading && !viewModel.trips.isEmpty {
+                    TextView(
+                        verbatim: viewModel.departureCity != nil && viewModel.arrivalCity != nil
+                            ? Localization.foundTrips.localized : Localization.suggestions.localized
+                    )
+                    .foregroundColor(Color(from: .black))
+                }
+            }
         }
         .listStyle(.plain)
     }

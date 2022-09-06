@@ -13,6 +13,7 @@
 "tui.pripplanner.triplist.to" = "To:";
 "tui.pripplanner.triplist.selectCity" = "Select city";
 "tui.pripplanner.triplist.foundTrips" = "Found trips:";
+"tui.pripplanner.triplist.suggestions" = "Our suggestion:";
 "tui.pripplanner.triplist.price" = "price";
 "tui.pripplanner.triplist.noTripsBetweenCities" = "There is no possible connection between the selected cities";
 "tui.pripplanner.triplist.sameCities" = "Cities are same";
