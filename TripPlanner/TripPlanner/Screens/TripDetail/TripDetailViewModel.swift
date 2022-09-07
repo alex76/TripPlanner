@@ -2,14 +2,14 @@ import Combine
 import Core
 import Repository
 
-// MARK: - TripStopListViewModelProtocol
-protocol TripStopListViewModelProtocol: ObservableObject {
+// MARK: - TripDetailViewModelProtocol
+protocol TripDetailViewModelProtocol: ObservableObject {
     var trip: Trip { get }
 }
 
-// MARK: - TripStopListViewModel
-final class TripStopListViewModel: BaseViewModel & TripStopListViewModelProtocol
-        & TripStopListFlowStateProtocol
+// MARK: - TripDetailViewModel
+final class TripDetailViewModel: BaseViewModel & TripDetailViewModelProtocol
+        & TripDetailFlowStateProtocol
 {
 
     init(trip: Trip) {
@@ -17,7 +17,7 @@ final class TripStopListViewModel: BaseViewModel & TripStopListViewModelProtocol
     }
 
     // MARK: - Flow state
-    @Published var route: TripStopListRoute?
+    @Published var route: TripDetailRoute?
 
     func openMap(for connection: Connection) {
 
@@ -30,7 +30,7 @@ final class TripStopListViewModel: BaseViewModel & TripStopListViewModelProtocol
 
 // MARK: - Preview
 #if DEBUG
-    extension TripStopListViewModel {
+    extension TripDetailViewModel {
         static var preview: Self {
             .init(trip: MockData.Trip.data)
         }

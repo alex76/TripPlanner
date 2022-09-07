@@ -1,7 +1,7 @@
 import DesignSystem
 import SwiftUI
 
-struct TripStopListHeader: View {
+struct TripDetailHeader: View {
 
     let departureName: String
     let arrivalName: String
@@ -34,9 +34,9 @@ struct TripStopListHeader: View {
 }
 
 #if DEBUG
-    struct TripStopListHeader_Previews: PreviewProvider {
+    struct TripDetailHeader_Previews: PreviewProvider {
         static var previews: some View {
-            TripStopListHeader(
+            TripDetailHeader(
                 departureName: "London",
                 arrivalName: "Porto",
                 price: 1200

@@ -1,21 +1,21 @@
 import DesignSystem
 import SwiftUI
 
-struct TripStopListScreenView<
-    ViewModel: TripStopListViewModelProtocol & TripStopListFlowStateProtocol
+struct TripDetailScreenView<
+    ViewModel: TripDetailViewModelProtocol & TripDetailFlowStateProtocol
 >: View {
     private typealias Localization = Resource.Text.TripList
 
     @StateObject var viewModel: ViewModel
 
     var body: some View {
-        TripStopListFlowCoordinator(state: viewModel, content: content)
+        TripDetailFlowCoordinator(state: viewModel, content: content)
     }
 
     @ViewBuilder
     private func content() -> some View {
         VStack(spacing: Theme.space.s0) {
-            TripStopListHeader(
+            TripDetailHeader(
                 departureName: viewModel.trip.connections.first?.source.name ?? "",
                 arrivalName: viewModel.trip.connections.last?.destination.name ?? "",
                 price: viewModel.trip.price
@@ -53,9 +53,9 @@ struct TripStopListScreenView<
 }
 
 #if DEBUG
-    struct TripStopListScreenView_Previews: PreviewProvider {
+    struct TripDetailScreenView_Previews: PreviewProvider {
         static var previews: some View {
-            TripStopListScreenView<TripStopListViewModel>(
+            TripDetailScreenView<TripDetailViewModel>(
                 viewModel: .preview
             )
         }

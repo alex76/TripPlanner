@@ -83,8 +83,8 @@ struct TripListFlowCoordinator<
     // MARK: - Destinations
     @ViewBuilder
     private func tripDetailDestination(_ value: Binding<Trip>) -> some View {
-        TripStopListScreenView(
-            viewModel: TripStopListViewModel(trip: value.wrappedValue)
+        TripDetailScreenView(
+            viewModel: TripDetailViewModel(trip: value.wrappedValue)
         )
     }
 

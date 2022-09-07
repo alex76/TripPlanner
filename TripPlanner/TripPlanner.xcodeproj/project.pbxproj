@@ -16,11 +16,11 @@
 		FA0EDD7128B77F2D0030ACB1 /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = FA0EDD7028B77F2D0030ACB1 /* Utilities */; };
 		FA0EDD7428B781FB0030ACB1 /* DIContainer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0EDD7328B781FB0030ACB1 /* DIContainer+.swift */; };
 		FA29880828C612180027F392 /* DestinationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA29880728C612180027F392 /* DestinationType.swift */; };
-		FA39594928C7949100B07FE3 /* TripStopListScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA39594828C7949100B07FE3 /* TripStopListScreenView.swift */; };
-		FA39594B28C7949B00B07FE3 /* TripStopListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA39594A28C7949B00B07FE3 /* TripStopListViewModel.swift */; };
-		FA39594D28C794AC00B07FE3 /* TripStopListFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA39594C28C794AC00B07FE3 /* TripStopListFlowCoordinator.swift */; };
+		FA39594928C7949100B07FE3 /* TripDetailScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA39594828C7949100B07FE3 /* TripDetailScreenView.swift */; };
+		FA39594B28C7949B00B07FE3 /* TripDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA39594A28C7949B00B07FE3 /* TripDetailViewModel.swift */; };
+		FA39594D28C794AC00B07FE3 /* TripDetailFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA39594C28C794AC00B07FE3 /* TripDetailFlowCoordinator.swift */; };
 		FA39595028C79B6100B07FE3 /* SwiftUINavigation in Frameworks */ = {isa = PBXBuildFile; productRef = FA39594F28C79B6100B07FE3 /* SwiftUINavigation */; };
-		FA39595328C7A0E200B07FE3 /* TripStopListHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA39595228C7A0E200B07FE3 /* TripStopListHeader.swift */; };
+		FA39595328C7A0E200B07FE3 /* TripDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA39595228C7A0E200B07FE3 /* TripDetailHeader.swift */; };
 		FA90B72B28B8E79C00FED2DA /* TripListScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90B72A28B8E79C00FED2DA /* TripListScreenView.swift */; };
 		FA90B72D28B8E7B000FED2DA /* TripListFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90B72C28B8E7B000FED2DA /* TripListFlowCoordinator.swift */; };
 		FA90B72F28B8E7C100FED2DA /* TripListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90B72E28B8E7C100FED2DA /* TripListViewModel.swift */; };
@@ -52,10 +52,10 @@
 		FA0EDD6D28B77E970030ACB1 /* DesignSystem */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DesignSystem; sourceTree = "<group>"; };
 		FA0EDD7328B781FB0030ACB1 /* DIContainer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DIContainer+.swift"; sourceTree = "<group>"; };
 		FA29880728C612180027F392 /* DestinationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationType.swift; sourceTree = "<group>"; };
-		FA39594828C7949100B07FE3 /* TripStopListScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripStopListScreenView.swift; sourceTree = "<group>"; };
-		FA39594A28C7949B00B07FE3 /* TripStopListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripStopListViewModel.swift; sourceTree = "<group>"; };
-		FA39594C28C794AC00B07FE3 /* TripStopListFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripStopListFlowCoordinator.swift; sourceTree = "<group>"; };
-		FA39595228C7A0E200B07FE3 /* TripStopListHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripStopListHeader.swift; sourceTree = "<group>"; };
+		FA39594828C7949100B07FE3 /* TripDetailScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailScreenView.swift; sourceTree = "<group>"; };
+		FA39594A28C7949B00B07FE3 /* TripDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailViewModel.swift; sourceTree = "<group>"; };
+		FA39594C28C794AC00B07FE3 /* TripDetailFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailFlowCoordinator.swift; sourceTree = "<group>"; };
+		FA39595228C7A0E200B07FE3 /* TripDetailHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailHeader.swift; sourceTree = "<group>"; };
 		FA90B72A28B8E79C00FED2DA /* TripListScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripListScreenView.swift; sourceTree = "<group>"; };
 		FA90B72C28B8E7B000FED2DA /* TripListFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripListFlowCoordinator.swift; sourceTree = "<group>"; };
 		FA90B72E28B8E7C100FED2DA /* TripListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripListViewModel.swift; sourceTree = "<group>"; };
@@ -175,21 +175,21 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		FA39594728C7947700B07FE3 /* TripStopList */ = {
+		FA39594728C7947700B07FE3 /* TripDetail */ = {
 			isa = PBXGroup;
 			children = (
 				FA39595128C7A0CE00B07FE3 /* Views */,
-				FA39594828C7949100B07FE3 /* TripStopListScreenView.swift */,
-				FA39594C28C794AC00B07FE3 /* TripStopListFlowCoordinator.swift */,
-				FA39594A28C7949B00B07FE3 /* TripStopListViewModel.swift */,
+				FA39594828C7949100B07FE3 /* TripDetailScreenView.swift */,
+				FA39594C28C794AC00B07FE3 /* TripDetailFlowCoordinator.swift */,
+				FA39594A28C7949B00B07FE3 /* TripDetailViewModel.swift */,
 			);
-			path = TripStopList;
+			path = TripDetail;
 			sourceTree = "<group>";
 		};
 		FA39595128C7A0CE00B07FE3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				FA39595228C7A0E200B07FE3 /* TripStopListHeader.swift */,
+				FA39595228C7A0E200B07FE3 /* TripDetailHeader.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -199,7 +199,7 @@
 			children = (
 				FA90B74828B9004400FED2DA /* Citypicker */,
 				FA90B72928B8E77F00FED2DA /* TripList */,
-				FA39594728C7947700B07FE3 /* TripStopList */,
+				FA39594728C7947700B07FE3 /* TripDetail */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -354,19 +354,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA90B72D28B8E7B000FED2DA /* TripListFlowCoordinator.swift in Sources */,
-				FA39594928C7949100B07FE3 /* TripStopListScreenView.swift in Sources */,
+				FA39594928C7949100B07FE3 /* TripDetailScreenView.swift in Sources */,
 				FA90B72F28B8E7C100FED2DA /* TripListViewModel.swift in Sources */,
-				FA39594B28C7949B00B07FE3 /* TripStopListViewModel.swift in Sources */,
+				FA39594B28C7949B00B07FE3 /* TripDetailViewModel.swift in Sources */,
 				FA0EDD7428B781FB0030ACB1 /* DIContainer+.swift in Sources */,
 				FA90B72B28B8E79C00FED2DA /* TripListScreenView.swift in Sources */,
 				FAE95FC328C766B800C0E844 /* TripListCell.swift in Sources */,
-				FA39595328C7A0E200B07FE3 /* TripStopListHeader.swift in Sources */,
+				FA39595328C7A0E200B07FE3 /* TripDetailHeader.swift in Sources */,
 				FA29880828C612180027F392 /* DestinationType.swift in Sources */,
 				FA0EDD5428B773180030ACB1 /* TripPlannerApp.swift in Sources */,
 				FA90B74A28B9008400FED2DA /* CityPickerScreenView.swift in Sources */,
 				FA90B74C28B9009500FED2DA /* CityPickerViewModel.swift in Sources */,
 				FAE95FC128C7400B00C0E844 /* TripListHeader.swift in Sources */,
-				FA39594D28C794AC00B07FE3 /* TripStopListFlowCoordinator.swift in Sources */,
+				FA39594D28C794AC00B07FE3 /* TripDetailFlowCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

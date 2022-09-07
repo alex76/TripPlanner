@@ -3,21 +3,21 @@ import Repository
 import SwiftUI
 import SwiftUINavigation
 
-// MARK: - TripStopListFlowStateProtocol
-protocol TripStopListFlowStateProtocol: ObservableObject {
-    var route: TripStopListRoute? { get set }
+// MARK: - TripDetailFlowStateProtocol
+protocol TripDetailFlowStateProtocol: ObservableObject {
+    var route: TripDetailRoute? { get set }
 
     func openMap(for connection: Connection)
 }
 
-// MARK: - TripStopListRoute
-enum TripStopListRoute {
+// MARK: - TripDetailRoute
+enum TripDetailRoute {
     case map
 }
 
-// MARK: - TripStopListFlowCoordinator
-struct TripStopListFlowCoordinator<
-    State: TripStopListFlowStateProtocol,
+// MARK: - TripDetailFlowCoordinator
+struct TripDetailFlowCoordinator<
+    State: TripDetailFlowStateProtocol,
     Content: View
 >: View {
     @EnvironmentObject var container: DIContainer
