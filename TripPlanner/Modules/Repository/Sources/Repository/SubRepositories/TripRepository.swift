@@ -1,6 +1,5 @@
 import Combine
 import Core
-import DesignSystem
 import Foundation
 import SwiftUI
 import Utilities
@@ -35,7 +34,7 @@ final class TripRepository: TripRepositoryProtocol {
 
     private var connectionGraph: DirectedGraph<City>?
 
-    let processingQueue: DispatchQueue = .init(
+    private let processingQueue: DispatchQueue = .init(
         label: "queue.repository.trip.processing"
     )
 

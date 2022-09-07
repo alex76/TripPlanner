@@ -42,6 +42,7 @@ final class MapViewModel: BaseViewModel, MapViewModelProtocol {
 
 }
 
+// MARK: - Helpers
 extension City.Coordinate {
     var locationCoordinate: CLLocationCoordinate2D {
         .init(latitude: lat, longitude: long)
