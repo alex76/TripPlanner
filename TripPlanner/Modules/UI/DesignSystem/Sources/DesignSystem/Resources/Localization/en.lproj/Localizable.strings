@@ -1,4 +1,5 @@
 "tui.pripplanner.greeting" = "Hello, everyone ;P";
+"tui.pripplanner.close" = "Close";
 
 // MARK: - Error
 "tui.pripplanner.error.general" = "An Error Has Occurred";
@@ -8,13 +9,21 @@
 "tui.pripplanner.error.noConnectionCheck" = "Please check your connection.";
 
 // MARK: - Trip List
+"tui.pripplanner.triplist.tripPlanner" = "TripPlanner";
+"tui.pripplanner.triplist.from" = "From:";
+"tui.pripplanner.triplist.to" = "To:";
 "tui.pripplanner.triplist.selectCity" = "Select city";
 "tui.pripplanner.triplist.foundTrips" = "Found trips:";
+"tui.pripplanner.triplist.suggestions" = "Suggestion:";
 "tui.pripplanner.triplist.price" = "price";
 "tui.pripplanner.triplist.noTripsBetweenCities" = "There is no possible connection between the selected cities";
 "tui.pripplanner.triplist.sameCities" = "Cities are same";
+"tui.pripplanner.triplist.stop" = "%d stop";
+"tui.pripplanner.triplist.stops" = "%d stops";
+"tui.pripplanner.triplist.direct" = "Direct";
 
 // MARK: - City picker
-"tui.pripplanner.citypicker.cityPicker" = "City Picker";
 "tui.pripplanner.citypicker.noCityAvailable" = "No city available for the conditions";
-"tui.pripplanner.citypicker.lookForACity" = "Look for a city";
+"tui.pripplanner.citypicker.searchTheCity" = "Search the city";
+"tui.pripplanner.citypicker.selectDeparture" = "Departure";
+"tui.pripplanner.citypicker.selectArrival" = "Arrival";

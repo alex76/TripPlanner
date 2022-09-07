@@ -36,3 +36,10 @@ extension Connection: Decodable {
         self.destination = .init(name: destinationName, coordinate: destinationCoordinate)
     }
 }
+
+extension Array where Element == Connection {
+    public var cities: [City] {
+        guard let first = self.first?.source else { return [] }
+        return self.reduce([first]) { $0 + [$1.destination] }
+    }
+}

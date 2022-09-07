@@ -75,7 +75,7 @@ public func baseText(_ content: TextViewContent) -> Text {
 }
 
 public func applyTextViewStyle(_ text: Text, style: TextViewStyle) -> Text {
-    let customText = text.baselineOffset(2)  // << shifted baseline !
+    let customText = text
     switch style {
     case .inherit:
         return customText

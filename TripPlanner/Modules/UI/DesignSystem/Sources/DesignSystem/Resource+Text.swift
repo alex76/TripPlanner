@@ -5,6 +5,7 @@ extension Resource {
         public static var prefix: String = "tui.pripplanner."
 
         case greeting
+        case close
     }
 }
 
@@ -26,11 +27,18 @@ extension Resource.Text {
     public enum TripList: String, LocalizedEnum {
         public static var prefix: String = Resource.Text.prefix + "triplist."
 
+        case tripPlanner
+        case from
+        case to
         case selectCity
         case foundTrips
+        case suggestions
         case price
         case noTripsBetweenCities
         case sameCities
+        case stop
+        case stops
+        case direct
     }
 }
 
@@ -40,7 +48,8 @@ extension Resource.Text {
         public static var prefix: String = Resource.Text.prefix + "citypicker."
 
         case noCityAvailable
-        case lookForACity
-        case cityPicker
+        case searchTheCity
+        case selectDeparture
+        case selectArrival
     }
 }

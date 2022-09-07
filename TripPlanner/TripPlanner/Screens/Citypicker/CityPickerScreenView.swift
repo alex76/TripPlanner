@@ -10,6 +10,7 @@ struct CityPickerScreenView<
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
     @StateObject var viewModel: ViewModel
+    let type: DestinationType
 
     var body: some View {
         NavigationView {
@@ -22,18 +23,38 @@ struct CityPickerScreenView<
                         viewModel?.didSelectCity(city)
                         presentationMode.wrappedValue.dismiss()
                     }) {
-                        TextView(verbatim: city.name)
+                        ZStack(alignment: .leading) {
+                            Color.clear.contentShape(Rectangle())
+                            TextView(verbatim: city.name)
+                        }
+                        .frame(maxWidth: .infinity, minHeight: 40, maxHeight: .infinity)
                     }
                 }
+                .listStyle(.plain)
                 .overlay {
                     if cities.isEmpty {
                         TextView(localizedEnum: Localization.noCityAvailable)
                     }
                 }
             }
-            .searchable(text: $viewModel.searchText, prompt: Localization.lookForACity.localized)
-            .navigationTitle(Localization.cityPicker.localized)
+            .toolbar {
+                Button(Resource.Text.close.localized) {
+                    presentationMode.wrappedValue.dismiss()
+                }
+            }
+            .searchable(
+                text: $viewModel.searchText,
+                placement: .navigationBarDrawer(displayMode: .always),
+                prompt: Localization.searchTheCity.localized
+            )
+            .navigationBarTitleDisplayMode(.large)
+            .navigationTitle(
+                type == .departure
+                    ? Localization.selectDeparture.localized
+                    : Localization.selectArrival.localized
+            )
         }
+        .blueNavigationAppearance()
         .navigationViewStyle(StackNavigationViewStyle())
     }
 }
@@ -42,7 +63,8 @@ struct CityPickerScreenView<
     struct CityPickerScreenView_Previews: PreviewProvider {
         static var previews: some View {
             CityPickerScreenView<CityPickerViewModel>(
-                viewModel: .preview
+                viewModel: .preview,
+                type: .departure
             )
         }
     }
