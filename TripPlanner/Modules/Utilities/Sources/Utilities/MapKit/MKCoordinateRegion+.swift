@@ -89,19 +89,36 @@ extension MKCoordinateRegion {
         )
 
         // find the center of the span
-        let center =
-            coordinates.count > 2
-            ? CLLocationCoordinate2DMake(
-                coordinates.first!.latitude,
-                coordinates.first!.longitude
+        let center = inverseTransform(
+            CLLocationCoordinate2DMake(
+                maxLat - (maxLat - minLat) / 2,
+                maxLon - (maxLon - minLon) / 2
             )
-            : inverseTransform(
-                CLLocationCoordinate2DMake(
-                    maxLat - (maxLat - minLat) / 2,
-                    maxLon - (maxLon - minLon) / 2
-                )
-            )
+        )
+        let region = MKCoordinateRegion(center: center, span: span)
 
-        return MKCoordinateRegion(center: center, span: span)
+        if let firstCoordinates = coordinates.first,
+            !region.contains(firstCoordinates)
+        {
+            let newCenter = CLLocationCoordinate2DMake(
+                firstCoordinates.latitude,
+                firstCoordinates.longitude
+            )
+            return MKCoordinateRegion(center: newCenter, span: span)
+        } else {
+            return region
+        }
+    }
+}
+
+extension MKCoordinateRegion {
+    fileprivate func contains(_ coordinate: CLLocationCoordinate2D) -> Bool {
+        let lat =
+            cos((center.latitude - coordinate.latitude) * Double.pi / 180.0)
+            > cos(span.latitudeDelta / 2.0 * Double.pi / 180.0)
+        let lon =
+            cos((center.longitude - coordinate.longitude) * Double.pi / 180.0)
+            > cos(span.longitudeDelta / 2.0 * Double.pi / 180.0)
+        return lat && lon
     }
 }
