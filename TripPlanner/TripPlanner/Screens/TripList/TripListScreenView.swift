@@ -70,7 +70,12 @@ struct TripListScreenView<
                         price: trip.price,
                         backgroundColor: Color(from: .blueTranslucent).opacity(0.05),
                         borderColor: Color(from: .grayBorder),
-                        didSelect: { [weak viewModel] in viewModel?.openTrip(trip) }
+                        didSelect: { [weak viewModel] in viewModel?.openTrip(trip) },
+                        disclosureIndicator: {
+                            Image(systemName: "chevron.forward")
+                                .font(.system(size: 15))
+                                .foregroundColor(Color(from: .black))
+                        }
                     )
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.clear)

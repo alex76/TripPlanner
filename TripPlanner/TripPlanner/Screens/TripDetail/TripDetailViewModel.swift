@@ -19,8 +19,8 @@ final class TripDetailViewModel: BaseViewModel & TripDetailViewModelProtocol
     // MARK: - Flow state
     @Published var route: TripDetailRoute?
 
-    func openMap(for connection: Connection) {
-
+    func openMap(for connections: [Connection]) {
+        route = .map(connections)
     }
 
     // MARK: - ViewModelProtocol

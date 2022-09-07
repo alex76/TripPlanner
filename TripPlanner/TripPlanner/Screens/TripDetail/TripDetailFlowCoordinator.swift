@@ -7,12 +7,12 @@ import SwiftUINavigation
 protocol TripDetailFlowStateProtocol: ObservableObject {
     var route: TripDetailRoute? { get set }
 
-    func openMap(for connection: Connection)
+    func openMap(for connections: [Connection])
 }
 
 // MARK: - TripDetailRoute
 enum TripDetailRoute {
-    case map
+    case map([Connection])
 }
 
 // MARK: - TripDetailFlowCoordinator

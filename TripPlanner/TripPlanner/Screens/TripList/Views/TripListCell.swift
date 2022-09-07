@@ -2,7 +2,7 @@ import Core
 import DesignSystem
 import SwiftUI
 
-struct TripListCell: View {
+struct TripListCell<DisclosureIndicator: View>: View {
     private typealias Localization = Resource.Text.TripList
 
     private let departure: String
@@ -12,8 +12,9 @@ struct TripListCell: View {
     private let backgroundColor: Color
     private let borderColor: Color
     private let showBadge: Bool
-    private let showArrow: Bool
     private let didSelect: () -> Void
+
+    @ViewBuilder private let disclosureIndicator: () -> DisclosureIndicator
 
     init(
         departure: String,
@@ -23,8 +24,8 @@ struct TripListCell: View {
         backgroundColor: Color = Color(from: .white),
         borderColor: Color = Color(from: .grayBorder),
         showBadge: Bool = true,
-        showArrow: Bool = true,
-        didSelect: @escaping () -> Void
+        didSelect: @escaping () -> Void,
+        @ViewBuilder disclosureIndicator: @escaping () -> DisclosureIndicator
     ) {
         self.departure = departure
         self.arrival = arrival
@@ -33,8 +34,8 @@ struct TripListCell: View {
         self.backgroundColor = backgroundColor
         self.borderColor = borderColor
         self.showBadge = showBadge
-        self.showArrow = showArrow
         self.didSelect = didSelect
+        self.disclosureIndicator = disclosureIndicator
     }
 
     var body: some View {
@@ -57,11 +58,7 @@ struct TripListCell: View {
                 )
                 .foregroundColor(Color(from: .black))
             }
-            if showArrow {
-                Image(systemName: "chevron.forward")
-                    .font(.system(size: 15))
-                    .foregroundColor(Color(from: .black))
-            }
+            disclosureIndicator()
         }
         .padding(Theme.space.s2)
         .background(backgroundColor)
@@ -131,7 +128,8 @@ struct TripListCell: View {
                     arrival: "Porto",
                     stops: 0,
                     price: 120,
-                    didSelect: {}
+                    didSelect: {},
+                    disclosureIndicator: { EmptyView() }
                 )
                 TripListCell(
                     departure: "London",
@@ -140,7 +138,12 @@ struct TripListCell: View {
                     price: 120,
                     backgroundColor: .yellow,
                     borderColor: Color(from: .blue),
-                    didSelect: {}
+                    didSelect: {},
+                    disclosureIndicator: {
+                        Image(systemName: "chevron.forward")
+                            .font(.system(size: 15))
+                            .foregroundColor(Color(from: .black))
+                    }
                 )
                 TripListCell(
                     departure: "London",
@@ -148,7 +151,12 @@ struct TripListCell: View {
                     stops: 3,
                     price: 120,
                     backgroundColor: .pink,
-                    didSelect: {}
+                    didSelect: {},
+                    disclosureIndicator: {
+                        Image(systemName: "map")
+                            .font(.system(size: 15))
+                            .foregroundColor(Color(from: .black))
+                    }
                 )
             }
             .padding()

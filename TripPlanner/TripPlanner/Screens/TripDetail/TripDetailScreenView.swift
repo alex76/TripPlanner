@@ -33,8 +33,12 @@ struct TripDetailScreenView<
                     backgroundColor: Color(from: .blueTranslucent).opacity(0.05),
                     borderColor: Color(from: .grayBorder),
                     showBadge: false,
-                    showArrow: false,
-                    didSelect: {}
+                    didSelect: { [weak viewModel] in viewModel?.openMap(for: [connection]) },
+                    disclosureIndicator: {
+                        Image(systemName: "map")
+                            .font(.system(size: 15))
+                            .foregroundColor(Color(from: .black))
+                    }
                 )
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.clear)
