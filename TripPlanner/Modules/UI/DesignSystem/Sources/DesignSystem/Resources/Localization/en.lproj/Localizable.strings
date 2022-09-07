@@ -8,7 +8,7 @@
 "tui.pripplanner.error.noConnectionCheck" = "Please check your connection.";
 
 // MARK: - Trip List
-"tui.pripplanner.triplist.connection" = "Connection";
+"tui.pripplanner.triplist.tripPlanner" = "TripPlanner";
 "tui.pripplanner.triplist.from" = "From:";
 "tui.pripplanner.triplist.to" = "To:";
 "tui.pripplanner.triplist.selectCity" = "Select city";

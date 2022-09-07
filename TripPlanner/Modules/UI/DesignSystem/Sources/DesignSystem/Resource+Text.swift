@@ -26,7 +26,7 @@ extension Resource.Text {
     public enum TripList: String, LocalizedEnum {
         public static var prefix: String = Resource.Text.prefix + "triplist."
 
-        case connection
+        case tripPlanner
         case from
         case to
         case selectCity

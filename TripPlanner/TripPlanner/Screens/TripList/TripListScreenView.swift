@@ -55,7 +55,7 @@ struct TripListScreenView<
             }
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle(Localization.connection.localized)
+        .navigationTitle(Localization.tripPlanner.localized)
     }
 
     @ViewBuilder
