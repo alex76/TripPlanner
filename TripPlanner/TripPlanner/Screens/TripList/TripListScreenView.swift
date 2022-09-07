@@ -1,5 +1,6 @@
 import DesignSystem
 import Foundation
+import Repository
 import SwiftUI
 import Utilities
 
@@ -66,7 +67,7 @@ struct TripListScreenView<
                     TripListCell(
                         departure: trip.connections.first?.source.name ?? "-",
                         arrival: trip.connections.last?.destination.name ?? "-",
-                        stops: trip.connections.stops.count - 2,
+                        stops: trip.connections.cities.count - 2,
                         price: trip.price,
                         backgroundColor: Color(from: .blueTranslucent).opacity(0.05),
                         borderColor: Color(from: .grayBorder),

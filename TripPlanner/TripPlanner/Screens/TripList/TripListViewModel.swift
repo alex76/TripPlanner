@@ -113,13 +113,6 @@ final class TripListViewModel: BaseViewModel, TripListViewModelProtocol, TripLis
     }
 }
 
-extension Array where Element == Connection {
-    var stops: [City] {
-        guard let first = self.first?.source else { return [] }
-        return self.reduce([first]) { $0 + [$1.destination] }
-    }
-}
-
 // MARK: - Preview
 #if DEBUG
     extension TripListViewModel {
