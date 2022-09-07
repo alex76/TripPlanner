@@ -1,5 +1,6 @@
 import Combine
 import Core
+import DesignSystem
 import Foundation
 import SwiftUI
 import Utilities
@@ -105,12 +106,12 @@ final class TripRepository: TripRepositoryProtocol {
                         )
                     }
                     .sorted(by: { $0.price < $1.price })
-                promise(.success(trips))
+                    .prefix(3)
+                promise(.success(Array(trips)))
             }
         }
         .subscribe(on: processingQueue)
-        .delay(for: .milliseconds(500), scheduler: processingQueue)
-        .receive(on: DispatchQueue.main)
+        .delay(for: .milliseconds(600), scheduler: DispatchQueue.main)
         .asSingle()
     }
 
@@ -142,8 +143,7 @@ final class TripRepository: TripRepositoryProtocol {
             }
         }
         .subscribe(on: processingQueue)
-        .delay(for: .milliseconds(500), scheduler: processingQueue)
-        .receive(on: DispatchQueue.main)
+        .delay(for: .milliseconds(600), scheduler: DispatchQueue.main)
         .asSingle()
     }
 
