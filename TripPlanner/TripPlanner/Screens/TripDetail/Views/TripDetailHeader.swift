@@ -1,3 +1,4 @@
+import Core
 import DesignSystem
 import SwiftUI
 
@@ -6,14 +7,6 @@ struct TripDetailHeader: View {
     let departureName: String
     let arrivalName: String
     let price: Double
-
-    private let priceFormatter: NumberFormatter = {
-        let currencyFormatter = NumberFormatter()
-        currencyFormatter.usesGroupingSeparator = true
-        currencyFormatter.numberStyle = .currency
-        currencyFormatter.locale = Locale.current
-        return currencyFormatter
-    }()
 
     var body: some View {
         HStack {
@@ -27,7 +20,10 @@ struct TripDetailHeader: View {
                 }
             }
             Spacer()
-            TextView(verbatim: priceFormatter.string(from: .init(value: price)) ?? "", .headline)
+            TextView(
+                verbatim: Constant.Formatter.price.string(from: .init(value: price)) ?? "",
+                .headline
+            )
         }
         .foregroundColor(Color(from: .white))
     }

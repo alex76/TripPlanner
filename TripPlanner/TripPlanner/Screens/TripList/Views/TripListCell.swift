@@ -1,3 +1,4 @@
+import Core
 import DesignSystem
 import SwiftUI
 
@@ -13,14 +14,6 @@ struct TripListCell: View {
     private let showBadge: Bool
     private let showArrow: Bool
     private let didSelect: () -> Void
-
-    private let priceFormatter: NumberFormatter = {
-        let currencyFormatter = NumberFormatter()
-        currencyFormatter.usesGroupingSeparator = true
-        currencyFormatter.numberStyle = .currency
-        currencyFormatter.locale = Locale.current
-        return currencyFormatter
-    }()
 
     init(
         departure: String,
@@ -59,7 +52,7 @@ struct TripListCell: View {
             Spacer()
             VStack {
                 TextView(
-                    verbatim: priceFormatter.string(from: NSNumber(value: price)) ?? "",
+                    verbatim: Constant.Formatter.price.string(from: NSNumber(value: price)) ?? "",
                     .headline
                 )
                 .foregroundColor(Color(from: .black))
