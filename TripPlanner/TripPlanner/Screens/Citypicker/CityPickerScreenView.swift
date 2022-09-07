@@ -38,7 +38,7 @@ struct CityPickerScreenView<
                 }
             }
             .toolbar {
-                Button(Localization.close.localized) {
+                Button(Resource.Text.close.localized) {
                     presentationMode.wrappedValue.dismiss()
                 }
             }

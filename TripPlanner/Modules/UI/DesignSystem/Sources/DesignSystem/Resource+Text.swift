@@ -5,6 +5,7 @@ extension Resource {
         public static var prefix: String = "tui.pripplanner."
 
         case greeting
+        case close
     }
 }
 
@@ -46,7 +47,6 @@ extension Resource.Text {
     public enum Citypicker: String, LocalizedEnum {
         public static var prefix: String = Resource.Text.prefix + "citypicker."
 
-        case close
         case noCityAvailable
         case searchTheCity
         case selectDeparture
