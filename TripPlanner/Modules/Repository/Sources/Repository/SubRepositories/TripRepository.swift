@@ -178,7 +178,27 @@ final class TripRepository: TripRepositoryProtocol {
             Empty().asSingle()
         }
         public func fetchSuggestions() -> Single<[Trip], Error> {
-            Empty().asSingle()
+            guard let graph = connectionGraph else {
+                return Fail(error: TripRepositoryError.noData).asSingle()
+            }
+            let trips = graph.edges()
+                .map { edge -> Trip in
+                    .init(
+                        price: edge.weight ?? 0,
+                        connections: [
+                            .init(
+                                source: edge.source.value,
+                                destination: edge.destination.value,
+                                price: edge.weight ?? 0
+                            )
+                        ]
+                    )
+                }
+                .sorted(by: { $0.price < $1.price })
+                .prefix(3)
+            return Just(Array(trips))
+                .setFailureType(to: Swift.Error.self)
+                .asSingle()
         }
         public func findTrips(from source: City, to destination: City) -> Single<[Trip], Error> {
             Empty().asSingle()
