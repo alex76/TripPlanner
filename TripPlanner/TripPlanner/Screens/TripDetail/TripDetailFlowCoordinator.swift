@@ -1,7 +1,6 @@
 import Core
 import Repository
 import SwiftUI
-import SwiftUINavigation
 
 // MARK: - TripDetailFlowStateProtocol
 protocol TripDetailFlowStateProtocol: ObservableObject {
@@ -11,8 +10,18 @@ protocol TripDetailFlowStateProtocol: ObservableObject {
 }
 
 // MARK: - TripDetailRoute
-enum TripDetailRoute {
+enum TripDetailRoute: Identifiable {
     case map([Connection])
+
+    var id: Int {
+        switch self {
+        case .map(let connections):
+            var hasher = Hasher()
+            hasher.combine("map")
+            hasher.combine(connections)
+            return hasher.finalize()
+        }
+    }
 
     var modal: TripDetailRoute? {
         switch self {
@@ -38,18 +47,17 @@ struct TripDetailFlowCoordinator<
 
     var body: some View {
         content()
-            .sheet(
-                unwrapping: activeSheet,
-                case: /TripDetailRoute.map,
-                content: mapDestination
-            )
+            .sheet(item: activeSheet, content: sheetDestination)
     }
 
     // MARK: Destinations
     @ViewBuilder
-    private func mapDestination(_ value: Binding<[Connection]>) -> some View {
-        MapScreenView(
-            viewModel: MapViewModel(connections: value.wrappedValue)
-        )
+    private func sheetDestination(_ route: TripDetailRoute) -> some View {
+        switch route {
+        case .map(let connections):
+            MapScreenView(
+                viewModel: MapViewModel(connections: connections)
+            )
+        }
     }
 }
