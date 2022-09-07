@@ -48,7 +48,7 @@ final class TripRepositoryTests: XCTestCase {
                 receiveValue: { cities = $0 }
             )
 
-        wait(for: [citiesExpectation], timeout: 1)
+        wait(for: [citiesExpectation], timeout: 2)
         citiesTask.cancel()
 
         XCTAssertEqual(
@@ -63,7 +63,7 @@ final class TripRepositoryTests: XCTestCase {
                 receiveValue: { cities = $0 }
             )
 
-        wait(for: [searchExpectation], timeout: 1)
+        wait(for: [searchExpectation], timeout: 2)
         searchTask.cancel()
 
         XCTAssertEqual(
@@ -103,28 +103,61 @@ final class TripRepositoryTests: XCTestCase {
             receiveValue: { trips = $0 }
         )
 
-        wait(for: [tripExpectation], timeout: 1)
+        wait(for: [tripExpectation], timeout: 2)
         tripTask.cancel()
 
         XCTAssertEqual(2, trips.count)
         XCTAssertEqual(400, trips[safe: 0]?.price)
         XCTAssertEqual(
             ["Los Angeles", "Tokyo", "London", "Porto"],
-            trips[safe: 0]?.connections.stops.map(\.name)
+            trips[safe: 0]?.connections.cities.map(\.name)
         )
         XCTAssertEqual(1300, trips[safe: 1]?.price)
         XCTAssertEqual(
             ["Los Angeles", "Tokyo", "Sydney", "Cape Town", "London", "Porto"],
-            trips[safe: 1]?.connections.stops.map(\.name)
+            trips[safe: 1]?.connections.cities.map(\.name)
         )
     }
 
-}
+    func testSuggestions() throws {
+        let dataExpectation = XCTestExpectation()
 
-// MARK: Helpers
-extension Array where Element == Connection {
-    fileprivate var stops: [City] {
-        guard let first = self.first?.source else { return [] }
-        return self.reduce([first]) { $0 + [$1.destination] }
+        let mockRepository = MockTripRepository()
+        let task = mockRepository.refreshConnections()
+            .sink(
+                receiveCompletion: { _ in dataExpectation.fulfill() },
+                receiveValue: { _ in }
+            )
+
+        wait(for: [dataExpectation], timeout: 1)
+        task.cancel()
+
+        let realRepository = TripRepository(graph: mockRepository.connectionGraph)
+
+        let suggestionExpectation = XCTestExpectation()
+        var trips: [Trip] = []
+
+        let suggestionTask = realRepository.fetchSuggestions()
+            .sink(
+                receiveCompletion: { _ in suggestionExpectation.fulfill() },
+                receiveValue: { trips = $0 }
+            )
+
+        wait(for: [suggestionExpectation], timeout: 2)
+        suggestionTask.cancel()
+
+        XCTAssertEqual(
+            ["London", "Porto"],
+            trips[safe: 0]?.connections.cities.map(\.name)
+        )
+        XCTAssertEqual(
+            ["Tokyo", "Sydney"],
+            trips[safe: 1]?.connections.cities.map(\.name)
+        )
+        XCTAssertEqual(
+            ["New York", "Los Angeles"],
+            trips[safe: 2]?.connections.cities.map(\.name)
+        )
     }
+
 }
