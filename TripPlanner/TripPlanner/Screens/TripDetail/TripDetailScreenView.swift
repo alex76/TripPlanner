@@ -18,7 +18,11 @@ struct TripDetailScreenView<
             TripDetailHeader(
                 departureName: viewModel.trip.connections.first?.source.name ?? "",
                 arrivalName: viewModel.trip.connections.last?.destination.name ?? "",
-                price: viewModel.trip.price
+                price: viewModel.trip.price,
+                onOpenMap: { [weak viewModel] in
+                    guard let connections = viewModel?.trip.connections else { return }
+                    viewModel?.openMap(for: connections)
+                }
             )
             .padding(.top, Theme.space.s2)
             .padding([.bottom, .horizontal], Theme.space.s4)
