@@ -2,7 +2,6 @@ import Core
 import DesignSystem
 import Repository
 import SwiftUI
-import SwiftUINavigation
 import Utilities
 
 // MARK: - TripListFlowStateProtocol
@@ -14,9 +13,23 @@ protocol TripListFlowStateProtocol: ObservableObject {
 }
 
 // MARK: - Route
-enum TripListRoute {
+enum TripListRoute: Identifiable {
     case cityPicker(city: Binding<City?>, type: DestinationType)
     case tripDetail(Trip)
+
+    var id: Int {
+        var hasher = Hasher()
+        switch self {
+        case .cityPicker(let city, let type):
+            hasher.combine("cityPicker")
+            hasher.combine(city.wrappedValue)
+            hasher.combine(type)
+        case .tripDetail(let trip):
+            hasher.combine("tripDetail")
+            hasher.combine(trip)
+        }
+        return hasher.finalize()
+    }
 
     var navigationLink: TripListRoute? {
         switch self {
@@ -48,8 +61,17 @@ struct TripListFlowCoordinator<
         $state.route.map(get: { $0?.modal }, set: { $0 })
     }
 
-    private var activeLink: Binding<TripListRoute?> {
-        $state.route.map(get: { $0?.navigationLink }, set: { $0 })
+    private var activeLink: Binding<Bool> {
+        .init(
+            get: { [weak state] in
+                state?.route?.navigationLink != nil
+            },
+            set: { [weak state] value in
+                if value == false && state?.route?.navigationLink != nil {
+                    state?.route = nil
+                }
+            }
+        )
     }
 
     var body: some View {
@@ -61,20 +83,18 @@ struct TripListFlowCoordinator<
         }
         .navigationViewStyle(.stack)
         .blueNavigationAppearance()
-        .sheet(
-            unwrapping: activeSheet,
-            case: /TripListRoute.cityPicker,
-            content: cityPickerDestination
-        )
+        .sheet(item: activeSheet, content: sheetDestinations)
     }
 
     @ViewBuilder private var navigationLinks: some View {
         ZStack {
             NavigationLink(
-                unwrapping: activeLink,
-                case: /TripListRoute.tripDetail,
-                destination: tripDetailDestination,
-                onNavigate: { _ in },
+                isActive: activeLink,
+                destination: { [weak state] in
+                    if let link = state?.route?.navigationLink {
+                        navigationDestinations(link)
+                    }
+                },
                 label: { EmptyView() }
             )
         }
@@ -82,24 +102,33 @@ struct TripListFlowCoordinator<
 
     // MARK: - Destinations
     @ViewBuilder
-    private func tripDetailDestination(_ value: Binding<Trip>) -> some View {
-        TripDetailScreenView(
-            viewModel: TripDetailViewModel(trip: value.wrappedValue)
-        )
+    private func navigationDestinations(_ route: TripListRoute) -> some View {
+        switch route {
+        case .tripDetail(let trip):
+            TripDetailScreenView(
+                viewModel: TripDetailViewModel(trip: trip)
+            )
+        default: EmptyView()
+
+        }
     }
 
     @ViewBuilder
-    private func cityPickerDestination(
-        _ value: Binding<(city: Binding<City?>, type: DestinationType)>
+    private func sheetDestinations(
+        _ route: TripListRoute
     ) -> some View {
-        IfLet(.constant(container.tripRepository)) { $repository in
-            CityPickerScreenView(
-                viewModel: CityPickerViewModel(
-                    repository: repository,
-                    city: value.wrappedValue.city
-                ),
-                type: value.wrappedValue.type
-            )
+        switch route {
+        case .cityPicker(let city, let type):
+            if let repository = container.tripRepository {
+                CityPickerScreenView(
+                    viewModel: CityPickerViewModel(
+                        repository: repository,
+                        city: city
+                    ),
+                    type: type
+                )
+            }
+        default: EmptyView()
         }
     }
 }

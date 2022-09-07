@@ -21,7 +21,6 @@
 		FA39594928C7949100B07FE3 /* TripDetailScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA39594828C7949100B07FE3 /* TripDetailScreenView.swift */; };
 		FA39594B28C7949B00B07FE3 /* TripDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA39594A28C7949B00B07FE3 /* TripDetailViewModel.swift */; };
 		FA39594D28C794AC00B07FE3 /* TripDetailFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA39594C28C794AC00B07FE3 /* TripDetailFlowCoordinator.swift */; };
-		FA39595028C79B6100B07FE3 /* SwiftUINavigation in Frameworks */ = {isa = PBXBuildFile; productRef = FA39594F28C79B6100B07FE3 /* SwiftUINavigation */; };
 		FA39595328C7A0E200B07FE3 /* TripDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA39595228C7A0E200B07FE3 /* TripDetailHeader.swift */; };
 		FA90B72B28B8E79C00FED2DA /* TripListScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90B72A28B8E79C00FED2DA /* TripListScreenView.swift */; };
 		FA90B72D28B8E7B000FED2DA /* TripListFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90B72C28B8E7B000FED2DA /* TripListFlowCoordinator.swift */; };
@@ -80,7 +79,6 @@
 				FA0EDD6F28B77F250030ACB1 /* DesignSystem in Frameworks */,
 				FA0EDD7128B77F2D0030ACB1 /* Utilities in Frameworks */,
 				FA0EDD6A28B77A3C0030ACB1 /* Repository in Frameworks */,
-				FA39595028C79B6100B07FE3 /* SwiftUINavigation in Frameworks */,
 				FA0EDD6728B777F00030ACB1 /* Core in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -276,7 +274,6 @@
 				FA0EDD6928B77A3C0030ACB1 /* Repository */,
 				FA0EDD6E28B77F250030ACB1 /* DesignSystem */,
 				FA0EDD7028B77F2D0030ACB1 /* Utilities */,
-				FA39594F28C79B6100B07FE3 /* SwiftUINavigation */,
 			);
 			productName = TripPlanner;
 			productReference = FA0EDD5028B773180030ACB1 /* TripPlanner.app */;
@@ -331,7 +328,6 @@
 			);
 			mainGroup = FA0EDD4728B773180030ACB1;
 			packageReferences = (
-				FA39594E28C79B6100B07FE3 /* XCRemoteSwiftPackageReference "swiftui-navigation" */,
 			);
 			productRefGroup = FA0EDD5128B773180030ACB1 /* Products */;
 			projectDirPath = "";
@@ -649,17 +645,6 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		FA39594E28C79B6100B07FE3 /* XCRemoteSwiftPackageReference "swiftui-navigation" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/pointfreeco/swiftui-navigation";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.2.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
 /* Begin XCSwiftPackageProductDependency section */
 		FA0EDD6628B777F00030ACB1 /* Core */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -676,11 +661,6 @@
 		FA0EDD7028B77F2D0030ACB1 /* Utilities */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Utilities;
-		};
-		FA39594F28C79B6100B07FE3 /* SwiftUINavigation */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FA39594E28C79B6100B07FE3 /* XCRemoteSwiftPackageReference "swiftui-navigation" */;
-			productName = SwiftUINavigation;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
