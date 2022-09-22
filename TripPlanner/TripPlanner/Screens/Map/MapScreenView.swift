@@ -23,27 +23,7 @@ struct MapScreenView<
                     Circle()
                         .fill(fillColor)
                         .frame(width: 35, height: 35)
-                        .overlay {
-                            switch item.id {
-                            case 1:
-                                VStack {
-                                    Image(systemName: "play")
-                                        .font(.system(size: 11)).foregroundColor(.white)
-                                    Text(verbatim: String(item.id))
-                                        .font(.system(size: 9)).foregroundColor(.white)
-                                }
-                            case viewModel.annotationItems.count:
-                                VStack {
-                                    Image(systemName: "flag.2.crossed")
-                                        .font(.system(size: 11)).foregroundColor(.white)
-                                    Text(verbatim: String(item.id))
-                                        .font(.system(size: 9)).foregroundColor(.white)
-                                }
-                            default:
-                                Text(verbatim: String(item.id))
-                                    .font(.system(size: 11)).foregroundColor(.white)
-                            }
-                        }
+                        .overlay { annotationContent(for: item) }
                 }
             }
             .toolbar {
@@ -59,6 +39,29 @@ struct MapScreenView<
         }
         .navigationViewStyle(.stack)
         .blueNavigationAppearance()
+    }
+
+    @ViewBuilder
+    private func annotationContent(for item: AnnotationItem) -> some View {
+        switch item.id {
+        case 1:
+            VStack {
+                Image(systemName: "play")
+                    .font(.system(size: 11)).foregroundColor(.white)
+                Text(verbatim: String(item.id))
+                    .font(.system(size: 9)).foregroundColor(.white)
+            }
+        case viewModel.annotationItems.count:
+            VStack {
+                Image(systemName: "flag.2.crossed")
+                    .font(.system(size: 11)).foregroundColor(.white)
+                Text(verbatim: String(item.id))
+                    .font(.system(size: 9)).foregroundColor(.white)
+            }
+        default:
+            Text(verbatim: String(item.id))
+                .font(.system(size: 11)).foregroundColor(.white)
+        }
     }
 }
 
